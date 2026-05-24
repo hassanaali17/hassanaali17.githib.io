@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hassan Ali Shah — Full Stack & AI/ML Developer</title>
+<meta name="description" content="Hassan Ali Shah — Full Stack Developer & AI/ML Engineer. CS student at ITU Lahore. National hackathon winner. Open to work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#0C0C0C;
+  --surface:#111418;
+  --cyan:#00e5ff;
+  --green:#00ff88;
+  --white:#D7E2EA;
+  --gray:#4a6880;
+  --border:rgba(215,226,234,0.12);
+}
+body{
+  font-family:'Kanit',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:none;
+}
+.hero-heading{
+  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* CURSOR */
+#cursor{
+  position:fixed;z-index:9999;pointer-events:none;
+  width:0;height:0;
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-bottom:18px solid var(--cyan);
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 0 5px rgba(0,229,255,.7));
+  transition:border-bottom-color .15s,filter .15s;
+}
+#cursor-dot{
+  position:fixed;z-index:10000;pointer-events:none;
+  width:4px;height:4px;background:var(--green);
+  border-radius:50%;transform:translate(-50%,-50%);
+}
+
+/* SCROLL BAR */
+#scroll-bar{
+  position:fixed;top:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--green),var(--cyan));
+  z-index:9998;width:0%;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;width:100%;z-index:1000;
+  padding:1.5rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(12,12,12,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.1rem;font-weight:700;color:var(--cyan);
+}
+.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  color:rgba(215,226,234,0.6);text-decoration:none;
+  font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-hire{
+  padding:.5rem 1.5rem;
+  background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
+  border-radius:100px;color:#fff;text-decoration:none;
+  font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  outline:2px solid rgba(255,255,255,0.2);outline-offset:-3px;
+  box-shadow:0 4px 4px rgba(181,1,167,.25),inset 4px 4px 12px #7721B1;
+  transition:opacity .2s;cursor:none;
+}
+.nav-hire:hover{opacity:.85}
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:6px;
+}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;inset:0;
+  background:rgba(12,12,12,.97);backdrop-filter:blur(20px);
+  z-index:1050;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-family:'Kanit',sans-serif;font-size:2rem;font-weight:700;
+  color:rgba(215,226,234,.6);text-decoration:none;text-transform:uppercase;letter-spacing:.15em;
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--white)}
+.mob-close{
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-size:1.8rem;color:var(--gray);
+  cursor:pointer;background:none;border:none;font-family:'Kanit',sans-serif;
+}
+
+/* HERO */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  overflow:hidden;padding-top:80px;
+}
+.hero-nav-spacer{height:80px}
+.hero-content{
+  flex:1;display:flex;flex-direction:column;
+  padding:0 3rem 2rem;
+  position:relative;
+}
+.hero-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding-top:2rem;
+}
+.hero-tag{
+  font-size:clamp(.75rem,1.4vw,1.1rem);
+  color:rgba(215,226,234,.6);font-weight:300;letter-spacing:.2em;text-transform:uppercase;
+}
+.hero-tag span{color:var(--cyan)}
+.hero-heading-wrap{overflow:hidden;margin-top:.5rem}
+.hero-h1{
+  font-size:clamp(13vw,15vw,17.5vw);
+  font-weight:900;text-transform:uppercase;
+  letter-spacing:-.02em;line-height:.95;white-space:nowrap;
+  width:100%;
+}
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-top:auto;padding-top:1.5rem;
+}
+.hero-desc-left{
+  font-size:clamp(.75rem,1.3vw,1.1rem);
+  color:rgba(215,226,234,.7);font-weight:300;
+  letter-spacing:.08em;text-transform:uppercase;line-height:1.5;
+  max-width:260px;
+}
+.hero-socials{display:flex;gap:.6rem;align-items:center}
+.soc{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(215,226,234,.5);text-decoration:none;font-size:.9rem;
+  transition:all .3s;cursor:none;
+}
+.soc:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* CONTACT BTN */
+.contact-btn{
+  padding:.75rem 2.5rem;
+  background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
+  border-radius:100px;color:#fff;text-decoration:none;
+  font-size:clamp(.78rem,1.2vw,1rem);font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  outline:2px solid rgba(255,255,255,0.25);outline-offset:-3px;
+  box-shadow:0 4px 4px rgba(181,1,167,.25),inset 4px 4px 12px #7721B1;
+  transition:opacity .2s;cursor:none;display:inline-block;
+}
+.contact-btn:hover{opacity:.85}
+
+/* PORTRAIT */
+.hero-portrait{
+  position:absolute;left:50%;transform:translateX(-50%);
+  bottom:0;z-index:10;
+  width:clamp(220px,30vw,460px);
+  transition:transform .3s ease;
+}
+.hero-portrait img{
+  width:100%;display:block;
+  filter:contrast(1.05) brightness(.95);
+}
+
+/* TYPING */
+.typing-wrap{
+  font-family:'JetBrains Mono',monospace;font-size:clamp(.75rem,1.2vw,.95rem);
+  color:var(--cyan);letter-spacing:.05em;
+}
+.typing-wrap::before{content:'$ ';color:var(--green)}
+#typed{border-right:2px solid var(--cyan);animation:blink .7s step-end infinite}
+@keyframes blink{50%{border-color:transparent}}
+
+/* MARQUEE */
+#marquee{
+  background:var(--bg);
+  padding:8rem 0 3rem;overflow:hidden;
+}
+.marquee-row{display:flex;gap:12px;margin-bottom:12px;will-change:transform}
+.marquee-img{
+  width:420px;height:270px;flex-shrink:0;
+  border-radius:16px;object-fit:cover;
+  background:var(--surface);
+}
+
+/* SECTION COMMON */
+.section-wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:6rem 3rem}
+.sec-eyebrow{
+  font-family:'JetBrains Mono',monospace;color:var(--green);
+  font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.8rem;
+}
+.sec-big-title{
+  font-size:clamp(4rem,12vw,140px);
+  font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;
+  margin-bottom:3rem;
+}
+
+/* ABOUT */
+#about{
+  background:var(--bg);
+  padding:6rem 3rem;
+  text-align:center;position:relative;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.about-deco{position:absolute;pointer-events:none}
+.about-tl{top:5%;left:3%;width:clamp(80px,14vw,200px);opacity:.9}
+.about-bl{bottom:8%;left:8%;width:clamp(70px,12vw,170px);opacity:.8}
+.about-tr{top:5%;right:3%;width:clamp(80px,14vw,200px);opacity:.9}
+.about-br{bottom:8%;right:8%;width:clamp(80px,14vw,210px);opacity:.8}
+.about-inner{max-width:660px;display:flex;flex-direction:column;align-items:center;gap:3rem;position:relative;z-index:2}
+.about-para{
+  font-size:clamp(1rem,1.8vw,1.3rem);
+  color:rgba(215,226,234,.8);font-weight:300;line-height:1.75;
+  letter-spacing:.02em;
+}
+.about-para .highlight{color:var(--cyan);font-weight:500}
+
+/* SKILLS */
+#skills{
+  background:var(--surface);
+  border-radius:50px 50px 0 0;
+  padding:5rem 3rem;
+  margin-top:-2rem;position:relative;z-index:2;
+}
+.skills-inner{max-width:1100px;margin:0 auto}
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:1.2rem;margin-top:1rem;
+}
+.skill-card{
+  border:1px solid var(--border);border-radius:20px;padding:1.6rem;
+  background:rgba(255,255,255,.03);transition:all .3s;
+}
+.skill-card:hover{border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.04)}
+.skill-card h3{
+  font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--white);margin-bottom:1rem;
+}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.tag{
+  padding:.3rem .85rem;border-radius:100px;font-size:.8rem;
+  font-family:'JetBrains Mono',monospace;border:1px solid;transition:transform .2s;
+}
+.tag.c{background:rgba(0,229,255,.07);border-color:rgba(0,229,255,.25);color:var(--cyan)}
+.tag.g{background:rgba(0,255,136,.07);border-color:rgba(0,255,136,.25);color:var(--green)}
+.tag:hover{transform:translateY(-2px)}
+
+/* SERVICES (experience/achievements) */
+#services{
+  background:#fff;
+  border-radius:50px 50px 0 0;
+  padding:5rem 3rem;
+  margin-top:-2rem;position:relative;z-index:3;
+  color:#0C0C0C;
+}
+.services-inner{max-width:900px;margin:0 auto}
+.sec-title-dark{
+  font-size:clamp(4rem,12vw,130px);
+  font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;
+  color:#0C0C0C;text-align:center;margin-bottom:3.5rem;
+}
+.svc-list{list-style:none}
+.svc-item{
+  display:flex;align-items:flex-start;gap:2rem;
+  padding:2.5rem 0;
+  border-top:1px solid rgba(12,12,12,.12);
+}
+.svc-item:last-child{border-bottom:1px solid rgba(12,12,12,.12)}
+.svc-num{
+  font-size:clamp(3.5rem,8vw,110px);font-weight:900;color:#0C0C0C;
+  line-height:1;flex-shrink:0;letter-spacing:-.03em;opacity:.15;
+}
+.svc-right{flex:1}
+.svc-name{
+  font-size:clamp(1.1rem,2.2vw,1.8rem);font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;color:#0C0C0C;margin-bottom:.5rem;
+}
+.svc-desc{
+  font-size:clamp(.85rem,1.5vw,1.1rem);font-weight:300;
+  color:rgba(12,12,12,.6);line-height:1.65;max-width:600px;
+}
+.svc-badge{
+  display:inline-block;margin-top:.6rem;
+  padding:.25rem .85rem;border-radius:100px;
+  background:rgba(12,12,12,.08);
+  font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(12,12,12,.5);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* PROJECTS */
+#projects{
+  background:var(--bg);
+  border-radius:50px 50px 0 0;
+  margin-top:-2rem;position:relative;z-index:4;
+  padding:5rem 3rem 8rem;
+}
+.projects-inner{max-width:1100px;margin:0 auto}
+.proj-stack{display:flex;flex-direction:column;gap:0}
+.proj-sticky-wrap{
+  height:85vh;position:relative;
+}
+.proj-card{
+  position:sticky;top:100px;
+  border-radius:40px;
+  border:2px solid rgba(215,226,234,.15);
+  background:var(--bg);
+  padding:2rem;
+  transform-origin:top center;
+}
+.proj-top-row{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;
+}
+.proj-num{
+  font-size:clamp(3.5rem,8vw,100px);font-weight:900;
+  line-height:1;letter-spacing:-.03em;opacity:.15;
+  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.proj-meta{flex:1;padding:0 1.5rem}
+.proj-cat{
+  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(215,226,234,.4);font-weight:400;margin-bottom:.4rem;
+}
+.proj-name{
+  font-size:clamp(1.2rem,2.5vw,2rem);font-weight:700;
+  color:var(--white);letter-spacing:-.01em;margin-bottom:.6rem;
+}
+.proj-desc-short{
+  font-size:clamp(.82rem,1.4vw,1rem);color:rgba(215,226,234,.55);
+  font-weight:300;line-height:1.6;max-width:500px;
+}
+.live-btn{
+  padding:.65rem 1.8rem;border-radius:100px;
+  border:2px solid rgba(215,226,234,.4);
+  color:var(--white);font-size:.82rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;transition:background .2s;cursor:none;
+  display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;
+}
+.live-btn:hover{background:rgba(215,226,234,.1)}
+.proj-imgs{display:flex;gap:1rem;margin-top:0}
+.proj-col1{display:flex;flex-direction:column;gap:.8rem;flex:4}
+.proj-col2{flex:6}
+.proj-img{
+  width:100%;object-fit:cover;display:block;
+  border-radius:24px;background:var(--surface);
+}
+.proj-col1 .proj-img:first-child{height:clamp(110px,14vw,200px)}
+.proj-col1 .proj-img:last-child{height:clamp(130px,18vw,280px)}
+.proj-col2 .proj-img{height:clamp(260px,35vw,500px)}
+.proj-tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.ptag{
+  padding:.2rem .65rem;border-radius:100px;
+  background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.2);
+  font-size:.72rem;color:rgba(0,229,255,.8);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ACHIEVEMENTS */
+#achievements{
+  background:var(--bg);padding:5rem 3rem;
+}
+.ach-inner{max-width:1100px;margin:0 auto}
+.ach-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.2rem;margin-top:0;
+}
+.ach-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:20px;
+  padding:2rem 1.5rem;text-align:center;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.ach-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+  transform:scaleX(0);transition:transform .3s;
+}
+.ach-card:hover{border-color:rgba(0,229,255,.3);transform:translateY(-4px)}
+.ach-card:hover::after{transform:scaleX(1)}
+.ach-emoji{font-size:2rem;margin-bottom:.8rem;display:block}
+.ach-card h3{font-size:.95rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+.ach-card p{font-size:.8rem;color:rgba(215,226,234,.5);line-height:1.6;font-weight:300}
+
+/* CONTACT */
+#contact{
+  background:var(--surface);
+  border-radius:50px 50px 0 0;
+  padding:6rem 3rem 5rem;
+  position:relative;z-index:2;
+}
+.contact-inner{max-width:1000px;margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-left h3{font-size:1.5rem;font-weight:600;color:var(--white);margin-bottom:1rem}
+.contact-left p{color:rgba(215,226,234,.5);font-weight:300;line-height:1.75;margin-bottom:2rem;font-size:.95rem}
+.contact-links{display:flex;flex-direction:column;gap:.8rem}
+.c-link{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.85rem 1.2rem;background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:12px;
+  text-decoration:none;color:rgba(215,226,234,.7);
+  font-family:'JetBrains Mono',monospace;font-size:.82rem;
+  transition:all .25s;cursor:none;
+}
+.c-link:hover{border-color:rgba(0,229,255,.35);color:var(--cyan);transform:translateX(4px)}
+.c-link i{color:var(--cyan);width:18px}
+.contact-form{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;padding:2rem}
+.form-row{margin-bottom:1.2rem}
+.form-row label{
+  display:block;font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;color:var(--cyan);margin-bottom:.4rem;letter-spacing:.1em;
+}
+.form-row label::before{content:'> ';color:var(--green)}
+.form-row input,.form-row textarea{
+  width:100%;padding:.75rem 1rem;background:rgba(12,12,12,.6);
+  border:1px solid var(--border);border-radius:10px;color:var(--white);
+  font-family:'Kanit',sans-serif;font-size:.9rem;outline:none;transition:border-color .3s;cursor:text;
+}
+.form-row input:focus,.form-row textarea:focus{border-color:var(--cyan)}
+.form-row textarea{height:110px;resize:vertical}
+.form-submit{
+  width:100%;padding:1rem;
+  background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
+  border:none;border-radius:100px;color:#fff;
+  font-family:'Kanit',sans-serif;font-weight:600;font-size:.95rem;
+  cursor:none;transition:opacity .3s;letter-spacing:.1em;text-transform:uppercase;
+  outline:2px solid rgba(255,255,255,.2);outline-offset:-3px;
+}
+.form-submit:hover{opacity:.85}
+.form-submit:disabled{opacity:.5}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;z-index:9000;
+  padding:1rem 1.5rem;border-radius:10px;
+  font-family:'JetBrains Mono',monospace;font-size:.82rem;
+  display:flex;align-items:center;gap:.7rem;
+  transform:translateY(80px);opacity:0;
+  transition:transform .4s,opacity .4s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green)}
+.toast.error{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.3);color:#ff6b6b}
+
+/* FOOTER */
+footer{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:2rem 3rem;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gray);
+}
+footer span{color:var(--cyan)}
+
+/* SCROLL TOP */
+#scroll-top{
+  position:fixed;bottom:2rem;right:2rem;
+  width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--border);background:rgba(12,12,12,.8);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cyan);font-size:.85rem;cursor:none;
+  opacity:0;transform:translateY(12px);transition:all .3s;pointer-events:none;z-index:5000;
+}
+#scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:all}
+#scroll-top:hover{border-color:var(--cyan);background:rgba(0,229,255,.08)}
+
+/* FADE UP */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.in{opacity:1;transform:translateY(0)}
+.fade-delay-1{transition-delay:.1s}
+.fade-delay-2{transition-delay:.2s}
+.fade-delay-3{transition-delay:.3s}
+.fade-delay-4{transition-delay:.4s}
+
+/* ANIMATED CHARS */
+.char-wrap{display:inline;position:relative}
+.char{
+  display:inline-block;opacity:.15;
+  transition:opacity .05s;
+}
+.char.lit{opacity:1}
+
+/* STATS ROW */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--bg);position:relative;z-index:1;
+}
+.stat-b{
+  padding:2.5rem 2rem;text-align:center;
+  border-right:1px solid var(--border);transition:background .3s;
+}
+.stat-b:last-child{border-right:none}
+.stat-b:hover{background:rgba(255,255,255,.03)}
+.stat-n{
+  font-size:2.8rem;font-weight:900;letter-spacing:-.02em;
+  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-n .suf{color:var(--green);-webkit-text-fill-color:var(--green)}
+.stat-l{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-top:.3rem;font-family:'JetBrains Mono',monospace}
+.stat-emoji{font-size:1.5rem;margin-bottom:.5rem;display:block}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links,.nav-hire{display:none}
+  .hamburger{display:flex}
+  body{cursor:auto}
+  #cursor,#cursor-dot{display:none}
+  .hero-content{padding:0 1.5rem 2rem}
+  .hero-portrait{display:none}
+  .hero-h1{font-size:clamp(14vw,18vw,22vw);white-space:normal}
+  #about{padding:5rem 1.5rem}
+  #skills,#services,#projects,#achievements,#contact{padding:4rem 1.5rem}
+  .contact-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .proj-imgs{flex-direction:column}
+  .proj-col1,.proj-col2{width:100%}
+  .proj-col1 .proj-img:first-child,.proj-col1 .proj-img:last-child,.proj-col2 .proj-img{height:200px}
+  .proj-card{border-radius:24px}
+  .proj-sticky-wrap{height:auto}
+  .proj-card{position:relative;top:0!important}
+  .proj-stack{gap:1.5rem}
+}
+@media(max-width:500px){
+  .hero-h1{font-size:18vw}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+<div id="scroll-bar"></div>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">&lt;<span>Hassan</span>/&gt;</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:hassanaalipnd@gmail.com" class="nav-hire">Hire Me</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#skills" onclick="closeMob()">Skills</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#achievements" onclick="closeMob()">Awards</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-top">
+      <div>
+        <div class="hero-tag" style="margin-bottom:.4rem">CS Student @ <span>ITU Lahore</span> &nbsp;·&nbsp; Open to Work</div>
+        <div class="typing-wrap"><span id="typed"></span></div>
+      </div>
+      <div class="hero-socials">
+        <a href="https://github.com/Hassan-Ali-17" target="_blank" class="soc"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/hassan-ali-shah-1b26a2333" target="_blank" class="soc"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:hassanaalipnd@gmail.com" class="soc"><i class="fas fa-envelope"></i></a>
+        <a href="Hassan_Ali_Shah_cv (3).pdf" download class="soc"><i class="fas fa-download"></i></a>
+      </div>
+    </div>
+
+    <div class="hero-heading-wrap">
+      <h1 class="hero-h1 hero-heading">Hassan Ali Shah</h1>
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-desc-left">
+        Full Stack Developer &amp; AI/ML Engineer. National Hackathon Winner. Building Real Products.
+      </p>
+      <div>
+        <a href="#contact" class="contact-btn">Contact Me</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portrait (hidden on mobile) -->
+  <div class="hero-portrait" id="portrait">
+    <img
+      src="hassan.jpg"
+      alt="Hassan Ali Shah"
+      onerror="this.outerHTML='<div style=\'width:100%;height:400px;display:flex;align-items:center;justify-content:center;font-size:8rem\'>👨‍💻</div>'"
+    >
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-b fade-up">
+    <span class="stat-emoji">🗂️</span>
+    <div class="stat-n"><span class="counter" data-target="26">0</span><span class="suf">+</span></div>
+    <div class="stat-l">Projects</div>
+  </div>
+  <div class="stat-b fade-up fade-delay-1">
+    <span class="stat-emoji">🏆</span>
+    <div class="stat-n"><span class="counter" data-target="4">0</span><span class="suf">×</span></div>
+    <div class="stat-l">Hackathons Won</div>
+  </div>
+  <div class="stat-b fade-up fade-delay-2">
+    <span class="stat-emoji">⚡</span>
+    <div class="stat-n"><span class="counter" data-target="1000">0</span><span class="suf">×</span></div>
+    <div class="stat-l">SQL Speedup</div>
+  </div>
+  <div class="stat-b fade-up fade-delay-3">
+    <span class="stat-emoji">💻</span>
+    <div class="stat-n"><span class="counter" data-target="2">0</span><span class="suf">+</span></div>
+    <div class="stat-l">Years Coding</div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div id="marquee">
+  <div class="marquee-row" id="row1"></div>
+  <div class="marquee-row" id="row2"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <img class="about-deco about-tl" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png" alt="">
+  <img class="about-deco about-bl" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png" alt="">
+  <img class="about-deco about-tr" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png" alt="">
+  <img class="about-deco about-br" src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png" alt="">
+
+  <div class="about-inner">
+    <h2 class="sec-big-title hero-heading fade-up">About Me</h2>
+    <p class="about-para fade-up" id="about-text">
+      I'm <span class="highlight">Hassan Ali Shah</span> — a CS student at
+      <span class="highlight">Information Technology University (ITU) Lahore</span>
+      with a deep passion for building impactful software at the intersection of
+      <span class="highlight">AI and full-stack engineering</span>. I specialise in the
+      <span class="highlight">MERN stack</span>, systems-level C/C++, and applied AI/ML —
+      having built everything from a 100–1000× SQL query optimizer to full-featured
+      freelance platforms. National hackathon winner at
+      <span class="highlight">ESA/CNES Space Apps</span>, <span class="highlight">NASA Hackathon</span>,
+      and Runner-Up at <span class="highlight">Innovation Pakistan 2026</span>.
+    </p>
+    <a href="#contact" class="contact-btn fade-up">Contact Me</a>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-inner">
+    <div class="sec-eyebrow">// tech_stack.json</div>
+    <h2 class="sec-big-title hero-heading fade-up">Skills</h2>
+    <div class="skills-grid fade-up">
+      <div class="skill-card">
+        <h3><i class="fas fa-code" style="color:var(--cyan);margin-right:.5rem"></i>Languages</h3>
+        <div class="tags">
+          <span class="tag c">C++</span><span class="tag c">C</span>
+          <span class="tag c">Python</span><span class="tag c">JavaScript</span>
+          <span class="tag c">TypeScript</span><span class="tag c">SQL</span><span class="tag c">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-layer-group" style="color:var(--cyan);margin-right:.5rem"></i>Frontend</h3>
+        <div class="tags">
+          <span class="tag g">React.js</span><span class="tag g">Next.js</span>
+          <span class="tag g">Tailwind</span><span class="tag g">Bootstrap</span>
+          <span class="tag g">Redux</span><span class="tag g">Framer Motion</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-server" style="color:var(--cyan);margin-right:.5rem"></i>Backend</h3>
+        <div class="tags">
+          <span class="tag c">Node.js</span><span class="tag c">Express.js</span>
+          <span class="tag c">Flask</span><span class="tag c">Django</span>
+          <span class="tag c">REST APIs</span><span class="tag c">GraphQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-database" style="color:var(--cyan);margin-right:.5rem"></i>Databases</h3>
+        <div class="tags">
+          <span class="tag g">MongoDB</span><span class="tag g">MySQL</span>
+          <span class="tag g">PostgreSQL</span><span class="tag g">Firebase</span><span class="tag g">Redis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-brain" style="color:var(--cyan);margin-right:.5rem"></i>AI / ML</h3>
+        <div class="tags">
+          <span class="tag c">TensorFlow</span><span class="tag c">PyTorch</span>
+          <span class="tag c">scikit-learn</span><span class="tag c">OpenCV</span>
+          <span class="tag c">NLP</span><span class="tag c">LangChain</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-tools" style="color:var(--cyan);margin-right:.5rem"></i>Tools</h3>
+        <div class="tags">
+          <span class="tag g">Git/GitHub</span><span class="tag g">Docker</span>
+          <span class="tag g">Linux</span><span class="tag g">Postman</span>
+          <span class="tag g">VS Code</span><span class="tag g">Figma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / ACHIEVEMENTS as SERVICES style -->
+<section id="services">
+  <div class="services-inner">
+    <h2 class="sec-title-dark">Experience</h2>
+    <ul class="svc-list">
+      <li class="svc-item fade-up">
+        <div class="svc-num">01</div>
+        <div class="svc-right">
+          <div class="svc-name">Full Stack Developer Intern</div>
+          <div class="svc-desc">CAASIAC Technologies — Built production-grade features using React, Node.js & MongoDB. Contributed to API development, participated in Agile sprints & collaborated in team-driven product delivery for real clients.</div>
+          <span class="svc-badge">2024 — Present</span>
+        </div>
+      </li>
+      <li class="svc-item fade-up fade-delay-1">
+        <div class="svc-num">02</div>
+        <div class="svc-right">
+          <div class="svc-name">CS Student & Competitive Programmer</div>
+          <div class="svc-desc">Information Technology University, Lahore — Actively building full-stack projects, exploring AI/ML research, and competing in national hackathons. Consistent GitHub contributor with 25+ projects spanning C++, Python, and the full MERN stack.</div>
+          <span class="svc-badge">2023 — Present</span>
+        </div>
+      </li>
+      <li class="svc-item fade-up fade-delay-2">
+        <div class="svc-num">03</div>
+        <div class="svc-right">
+          <div class="svc-name">AI / ML Engineering</div>
+          <div class="svc-desc">Hands-on experience building AI-powered systems using TensorFlow, PyTorch, LangChain, OpenCV & NLP pipelines. Applied ML to real projects including hackathon-winning space-tech solutions and crisis management systems.</div>
+          <span class="svc-badge">Ongoing</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="sec-eyebrow">// git_log --projects</div>
+    <h2 class="sec-big-title hero-heading fade-up">Projects</h2>
+
+    <div class="proj-stack">
+
+      <!-- Project 1: Cost-Based Query Optimizer -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc1">
+          <div class="proj-top-row">
+            <div class="proj-num">01</div>
+            <div class="proj-meta">
+              <div class="proj-cat">Systems / C++</div>
+              <div class="proj-name">Cost-Based Query Optimizer</div>
+              <div class="proj-desc-short">C/C++ SQL optimizer with Selinger DP join ordering & 4 rewrite rules. Achieves 100–1000× speedups over naive plans. Includes SQL shell, EXPLAIN, catalog cache & benchmark suite.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/Cost_Based_Query_Optimizer" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">C++</span><span class="ptag">DBMS</span><span class="ptag">SQL</span><span class="ptag">Algorithms</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#060f1a,#0a1e30);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🗄️</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#041020,#081828);display:flex;align-items:center;justify-content:center;padding:1.2rem;">
+                <pre style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:.68rem;opacity:.8;line-height:1.7">SELECT *
+FROM orders o
+JOIN users u
+  ON o.uid = u.id
+WHERE u.city = 'LHR'
+-- Cost: 42 (was 41,000)
+-- Speedup: 1000×</pre>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#040c14,#071828);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2.5rem">
+                <div style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;letter-spacing:.05em;">1000×</div>
+                <div style="color:rgba(215,226,234,.4);font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;">SQL Speedup</div>
+                <div style="width:80%;height:2px;background:linear-gradient(90deg,#00ff88,#00e5ff);border-radius:2px;"></div>
+                <div style="color:rgba(215,226,234,.35);font-size:.75rem;font-family:'JetBrains Mono',monospace;text-align:center;line-height:1.9">Selinger DP Join Ordering<br>Predicate Pushdown<br>Index Selection<br>Query Rewrite Rules</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Vortex OS -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc2">
+          <div class="proj-top-row">
+            <div class="proj-num">02</div>
+            <div class="proj-meta">
+              <div class="proj-cat">OS Dev / Python</div>
+              <div class="proj-name">VORTEX OS — Custom Linux Environment</div>
+              <div class="proj-desc-short">Custom Linux-based OS environment on Ubuntu — hand-crafted Python shell, 6 live-switchable cyberpunk themes, command chaining, alias engine & persistent history. Evolving across 15 phases toward a fully bootable Linux distro.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/Vortex_OS" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">Python</span><span class="ptag">Linux</span><span class="ptag">OS Dev</span><span class="ptag">Shell</span><span class="ptag">PyQt6</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#0d001a,#1a0033);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🖥️</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#0a0020,#130035);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">6 Cyberpunk Themes ✓</div>
+                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Command Chaining ✓</div>
+                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Alias Engine ✓</div>
+                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Persistent History ✓</div>
+                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">15 Phase Roadmap ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#080015,#100025);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem">
+                <div style="font-size:3.5rem">🚀</div>
+                <div style="color:#B600A8;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;letter-spacing:.1em;">VORTEX OS<br><span style="color:rgba(215,226,234,.4);font-size:.78rem">Evolving toward a bootable<br>Linux distro — Phase 15</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: FairGig -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc3">
+          <div class="proj-top-row">
+            <div class="proj-num">03</div>
+            <div class="proj-meta">
+              <div class="proj-cat">Full Stack · Hackathon</div>
+              <div class="proj-name">FairGig — Freelance Platform</div>
+              <div class="proj-desc-short">Full-stack freelance marketplace built for Softect 2026 — Top 5. Features real-time chat, job posting, proposals & complete payment flow with user dashboards.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/Softect26_project" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">MERN</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Socket.IO</span><span class="ptag">Softect Top 5</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#071a07,#0d2e0d);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">💼</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#071207,#0a1a0a);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Real-time Chat ✓</div>
+                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Job Posting ✓</div>
+                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Proposals System ✓</div>
+                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Payment Flow ✓</div>
+                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Admin Dashboard ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#051205,#081a08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+                <div style="font-size:3.5rem">🏆</div>
+                <div style="color:#00ff88;font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-align:center">Softect 2026<br><span style="font-size:.85rem;opacity:.6">Top 5 Nationwide</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: Fleet Crisis Command -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc4">
+          <div class="proj-top-row">
+            <div class="proj-num">04</div>
+            <div class="proj-meta">
+              <div class="proj-cat">AI-Powered · Real-time</div>
+              <div class="proj-name">Fleet Crisis Command</div>
+              <div class="proj-desc-short">Real-time naval fleet management system — CodeRush ITU 2026 Top 3. Live ship tracking, AI-powered crisis advisor & distress signal handling. Built with Next.js + Flask + Socket.IO + Docker.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/webdev" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">Next.js</span><span class="ptag">Flask</span><span class="ptag">Socket.IO</span><span class="ptag">AI Powered</span><span class="ptag">Docker</span><span class="ptag">CodeRush Top 3</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#00101a,#001e30);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🚢</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#000e18,#001828);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Live Ship Tracking ✓</div>
+                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">AI Crisis Advisor ✓</div>
+                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Distress Signals ✓</div>
+                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Real-time Socket.IO ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#000c18,#001020);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+                <div style="font-size:3.5rem">🥉</div>
+                <div style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-align:center">CodeRush ITU 2026<br><span style="font-size:.85rem;opacity:.6">Top 3</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5: Zaiqa On Wheels -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc5">
+          <div class="proj-top-row">
+            <div class="proj-num">05</div>
+            <div class="proj-meta">
+              <div class="proj-cat">Full Stack / E-Commerce</div>
+              <div class="proj-name">Zaiqa On Wheels</div>
+              <div class="proj-desc-short">Full-stack food & groceries ordering platform. Includes user authentication, dynamic menu browsing, cart management, real-time order tracking & a complete admin dashboard for restaurant management.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/Zaiqa-On-Wheels-Food-and-groceries-ordering-website" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Full Stack</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#1a0a00,#2e1500);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🍔</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#180900,#280f00);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">User Auth ✓</div>
+                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Dynamic Menu ✓</div>
+                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Cart Management ✓</div>
+                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Order Tracking ✓</div>
+                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Admin Dashboard ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#140700,#201000);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+                <div style="font-size:3.5rem">🍕</div>
+                <div style="color:#ff8c00;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;letter-spacing:.05em;">Food &amp; Groceries<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">Delivery Platform</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 6: Rental Car App -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc6">
+          <div class="proj-top-row">
+            <div class="proj-num">06</div>
+            <div class="proj-meta">
+              <div class="proj-cat">Full Stack / Web App</div>
+              <div class="proj-name">Rental Car App</div>
+              <div class="proj-desc-short">Car rental web application with full booking management, user profiles, car listings, real-time availability tracking & a comprehensive admin control panel for fleet management.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/rental_car_app_project" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">React</span><span class="ptag">Express</span><span class="ptag">MySQL</span><span class="ptag">Full Stack</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#00101a,#001825);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🚗</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#000e18,#001420);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Booking System ✓</div>
+                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Car Listings ✓</div>
+                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Availability Tracker ✓</div>
+                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">User Profiles ✓</div>
+                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Admin Panel ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#000c14,#000e1a);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+                <div style="font-size:3.5rem">🏎️</div>
+                <div style="color:#4db8ff;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;">Fleet Management<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">React + Express + MySQL</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 7: Scrabble (OOP) -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc7">
+          <div class="proj-top-row">
+            <div class="proj-num">07</div>
+            <div class="proj-meta">
+              <div class="proj-cat">C++ / OOP / Game Dev</div>
+              <div class="proj-name">Scrabble Game (OOP)</div>
+              <div class="proj-desc-short">Fully functional Scrabble game in C++ using core OOP principles. Features complete tile management, score tracking, board rendering, dictionary validation & multi-player turn handling.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/Oop-Sem-proj-Scrabble" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">C++</span><span class="ptag">OOP</span><span class="ptag">Game Dev</span><span class="ptag">DSA</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#1a1000,#2e1c00);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🔤</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#180e00,#281600);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Tile Management ✓</div>
+                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Score Tracking ✓</div>
+                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Board Rendering ✓</div>
+                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Dictionary Validation ✓</div>
+                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Multiplayer Turns ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#140b00,#1e1100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+                <div style="font-size:3.5rem">🎯</div>
+                <div style="color:#ffcc00;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;">OOP Principles<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">C++ · Inheritance · Polymorphism</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 8: Task Flow Pro -->
+      <div class="proj-sticky-wrap">
+        <div class="proj-card" id="pc8">
+          <div class="proj-top-row">
+            <div class="proj-num">08</div>
+            <div class="proj-meta">
+              <div class="proj-cat">Full Stack / Productivity</div>
+              <div class="proj-name">Task Flow Pro</div>
+              <div class="proj-desc-short">Powerful task management application designed to streamline productivity and workflow. Features task creation, organization, priority management & an intuitive interface for tracking progress.</div>
+            </div>
+            <a href="https://github.com/Hassan-Ali-17/Task_Flow_Pro" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+          </div>
+          <div class="proj-tags-row">
+            <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Full Stack</span>
+          </div>
+          <div class="proj-imgs" style="margin-top:1.5rem">
+            <div class="proj-col1">
+              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#0a001a,#150030);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">✅</div>
+              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#080015,#100025);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
+                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Task Creation ✓</div>
+                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Priority Management ✓</div>
+                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Progress Tracking ✓</div>
+                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Team Organization ✓</div>
+              </div>
+            </div>
+            <div class="proj-col2">
+              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#060010,#0c0020);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+                <div style="font-size:3.5rem">📋</div>
+                <div style="color:#a855f7;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;">Productivity Suite<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">React + Node.js + MongoDB</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="ach-inner">
+    <div class="sec-eyebrow">// awards.log</div>
+    <h2 class="sec-big-title hero-heading fade-up">Awards</h2>
+    <div class="ach-grid">
+      <div class="ach-card fade-up">
+        <span class="ach-emoji">🚀</span>
+        <h3>ESA/CNES Space Apps</h3>
+        <p>Winner at European Space Agency & CNES hackathon — top national placement representing ITU Lahore.</p>
+      </div>
+      <div class="ach-card fade-up fade-delay-1">
+        <span class="ach-emoji">🌍</span>
+        <h3>NASA Hackathon</h3>
+        <p>Won at NASA Space Apps Challenge, building innovative space-tech solutions under competitive pressure.</p>
+      </div>
+      <div class="ach-card fade-up fade-delay-2">
+        <span class="ach-emoji">🥈</span>
+        <h3>Innovation Pakistan 2026</h3>
+        <p>Runner-Up at Innovation Pakistan 2026, a national-level competition recognising Pakistan's top innovators.</p>
+      </div>
+      <div class="ach-card fade-up fade-delay-3">
+        <span class="ach-emoji">⚡</span>
+        <h3>Softect 2026 — Top 5</h3>
+        <p>FairGig freelance platform ranked Top 5 at ITU's premier national technology competition.</p>
+      </div>
+      <div class="ach-card fade-up fade-delay-4">
+        <span class="ach-emoji">🎓</span>
+        <h3>CS @ ITU Lahore</h3>
+        <p>Studying Computer Science at one of Pakistan's top-ranked universities for technology and innovation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="sec-eyebrow">// ping_hassan()</div>
+    <h2 class="sec-big-title hero-heading fade-up">Contact</h2>
+    <div class="contact-grid fade-up">
+      <div class="contact-left">
+        <h3>Let's Build Something Great 🚀</h3>
+        <p>Open to full-stack projects, AI collaborations, internships, or just a tech chat. Drop a message and I'll get back to you as soon as possible!</p>
+        <div class="contact-links">
+          <a href="mailto:hassanaalipnd@gmail.com" class="c-link"><i class="fas fa-envelope"></i> hassanaalipnd@gmail.com</a>
+          <a href="https://www.linkedin.com/in/hassan-ali-shah-1b26a2333" target="_blank" class="c-link"><i class="fab fa-linkedin-in"></i> linkedin.com/in/hassan-ali-shah</a>
+          <a href="https://github.com/Hassan-Ali-17" target="_blank" class="c-link"><i class="fab fa-github"></i> github.com/Hassan-Ali-17</a>
+          <div class="c-link" style="cursor:default"><i class="fas fa-map-marker-alt"></i> Lahore, Pakistan 🇵🇰</div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <label>name</label>
+          <input type="text" id="from_name" placeholder="Your name...">
+        </div>
+        <div class="form-row">
+          <label>email</label>
+          <input type="email" id="from_email" placeholder="your@email.com">
+        </div>
+        <div class="form-row">
+          <label>message</label>
+          <textarea id="message" placeholder="Hey Hassan, let's connect..."></textarea>
+        </div>
+        <button class="form-submit" id="submitBtn" onclick="submitForm(this)">
+          Send Message →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&lt; Built by <span>Hassan Ali Shah</span> · ITU Lahore · 2026 /&gt;</p>
+  <p style="margin-top:.4rem;font-size:.7rem;opacity:.6">Full Stack &nbsp;|&nbsp; AI/ML &nbsp;|&nbsp; Open to Work</p>
+</footer>
+
+<script>
+/* EMAILJS */
+const EJ_PUBLIC_KEY='aC9qLFkldKZZbEt3i',EJ_SERVICE_ID='service_ogmzqsi',EJ_TEMPLATE_ID='template_02qrazm';
+emailjs.init(EJ_PUBLIC_KEY);
+async function submitForm(btn){
+  const name=document.getElementById('from_name').value.trim();
+  const email=document.getElementById('from_email').value.trim();
+  const message=document.getElementById('message').value.trim();
+  if(!name||!email||!message){showToast('error','⚠ Please fill in all fields.');return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('error','⚠ Enter a valid email.');return}
+  btn.disabled=true;btn.textContent='Sending...';
+  try{
+    await emailjs.send(EJ_SERVICE_ID,EJ_TEMPLATE_ID,{from_name:name,from_email:email,message,to_email:'hassanaalipnd@gmail.com'});
+    btn.textContent='Sent ✓';showToast('success','✓ Message sent!');
+    document.getElementById('from_name').value='';
+    document.getElementById('from_email').value='';
+    document.getElementById('message').value='';
+    setTimeout(()=>{btn.textContent='Send Message →';btn.disabled=false},4000);
+  }catch(e){btn.textContent='Send Message →';btn.disabled=false;showToast('error','✗ Failed. Email directly.')}
+}
+function showToast(type,msg){
+  const t=document.getElementById('toast');
+  t.className='toast '+type;t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),5000);
+}
+
+/* CURSOR */
+const cur=document.getElementById('cursor'),curDot=document.getElementById('cursor-dot');
+let mx=0,my=0,px=0,py=0,angle=0,hov=false;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  curDot.style.left=mx+'px';curDot.style.top=my+'px';
+});
+setInterval(()=>{
+  const dx=mx-px,dy=my-py;
+  if(Math.abs(dx)+Math.abs(dy)>1.5){
+    let t=Math.atan2(dx,-dy)*(180/Math.PI),d=t-angle;
+    if(d>180)d-=360;if(d<-180)d+=360;
+    angle+=d*0.25;
+    cur.style.transform=`translate(-50%,-50%) rotate(${angle}deg) scale(${hov?1.5:1})`;
+  }
+  px=mx;py=my;
+},16);
+document.querySelectorAll('a,button,.skill-card,.ach-card,.proj-card,.svc-item,.c-link').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{hov=true;cur.style.borderBottomColor='#00ff88';cur.style.filter='drop-shadow(0 0 8px rgba(0,255,136,.9))'});
+  el.addEventListener('mouseleave',()=>{hov=false;cur.style.borderBottomColor='#00e5ff';cur.style.filter='drop-shadow(0 0 5px rgba(0,229,255,.7))'});
+});
+
+/* SCROLL BAR */
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  document.getElementById('scroll-bar').style.width=pct+'%';
+  document.getElementById('scroll-top').classList.toggle('visible',window.scrollY>300);
+},{passive:true});
+
+/* MOBILE MENU */
+function toggleMob(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+function closeMob(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+/* ACTIVE NAV */
+const sects=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+const navObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+    }
+  });
+},{threshold:.3});
+sects.forEach(s=>navObs.observe(s));
+
+/* TYPING */
+const roles=['Full Stack Developer','AI/ML Engineer','C++ Programmer','CS Student @ ITU','Hackathon Winner','Problem Solver'];
+let ri=0,ci=0,del=false;
+const typedEl=document.getElementById('typed');
+function type(){
+  const word=roles[ri];
+  typedEl.textContent=del?word.slice(0,ci-1):word.slice(0,ci+1);
+  del?ci--:ci++;
+  let spd=del?55:95;
+  if(!del&&ci===word.length){spd=2200;del=true}
+  else if(del&&ci===0){del=false;ri=(ri+1)%roles.length;spd=300}
+  setTimeout(type,spd);
+}
+type();
+
+/* COUNTER */
+const easeOut=t=>1-Math.pow(1-t,3);
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    counterObs.unobserve(e.target);
+    const el=e.target,target=parseInt(el.dataset.target),dur=target>=100?1800:1200,start=performance.now();
+    function tick(now){
+      const t=Math.min((now-start)/dur,1);
+      el.textContent=Math.round(easeOut(t)*target);
+      if(t<1)requestAnimationFrame(tick);else el.textContent=target;
+    }
+    requestAnimationFrame(tick);
+  });
+},{threshold:.5});
+document.querySelectorAll('.counter').forEach(c=>counterObs.observe(c));
+
+/* FADE UP */
+const fadeObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');fadeObs.unobserve(e.target)}});
+},{threshold:.08});
+document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
+
+/* MARQUEE IMAGES (scroll-driven) */
+const row1Imgs=[
+  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
+  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
+  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
+  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
+  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
+  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
+  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
+  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
+  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
+  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
+  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
+];
+const row2Imgs=[
+  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
+  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
+  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
+  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
+  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
+  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
+  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
+  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
+  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
+  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
+];
+function buildRow(rowEl,imgs){
+  const triple=[...imgs,...imgs,...imgs];
+  triple.forEach(src=>{
+    const img=document.createElement('img');
+    img.src=src;img.loading='lazy';img.className='marquee-img';
+    img.style.willChange='transform';
+    rowEl.appendChild(img);
+  });
+}
+buildRow(document.getElementById('row1'),row1Imgs);
+buildRow(document.getElementById('row2'),row2Imgs);
+
+const marqueeEl=document.getElementById('marquee');
+const row1El=document.getElementById('row1');
+const row2El=document.getElementById('row2');
+function updateMarquee(){
+  const rect=marqueeEl.getBoundingClientRect();
+  const offset=(window.scrollY-marqueeEl.offsetTop+window.innerHeight)*0.3;
+  row1El.style.transform=`translateX(${offset-200}px)`;
+  row2El.style.transform=`translateX(${-(offset-200)}px)`;
+}
+window.addEventListener('scroll',updateMarquee,{passive:true});
+updateMarquee();
+
+/* MAGNETIC PORTRAIT */
+const portrait=document.getElementById('portrait');
+if(portrait){
+  document.addEventListener('mousemove',e=>{
+    const rect=portrait.getBoundingClientRect();
+    const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+    const dx=e.clientX-cx,dy=e.clientY-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<300){
+      const strength=3;
+      portrait.style.transform=`translateX(calc(-50% + ${dx/strength}px)) translateY(${dy/strength}px)`;
+      portrait.style.transition='transform .3s ease-out';
+    } else {
+      portrait.style.transform='translateX(-50%)';
+      portrait.style.transition='transform .6s ease-in-out';
+    }
+  });
+}
+
+/* STICKY PROJECT CARDS — scale down as you scroll past */
+const cards=[
+  document.getElementById('pc1'),
+  document.getElementById('pc2'),
+  document.getElementById('pc3'),
+  document.getElementById('pc4'),
+];
+function updateCards(){
+  cards.forEach((card,i)=>{
+    if(!card)return;
+    const wrap=card.parentElement;
+    const rect=wrap.getBoundingClientRect();
+    const progress=Math.max(0,Math.min(1,(-rect.top)/(rect.height-window.innerHeight*.85)));
+    const scaleTarget=1-(cards.length-1-i)*0.03;
+    const scale=1-(scaleTarget<1?(1-scaleTarget)*progress:0);
+    card.style.transform=`scale(${scale})`;
+    card.style.transformOrigin='top center';
+    card.style.top=`${100+i*28}px`;
+  });
+}
+window.addEventListener('scroll',updateCards,{passive:true});
+updateCards();
+</script>
+</body>
+</html>
