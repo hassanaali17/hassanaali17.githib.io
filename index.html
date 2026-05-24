@@ -115,39 +115,46 @@ nav{
   cursor:pointer;background:none;border:none;font-family:'Kanit',sans-serif;
 }
 
-/* HERO */
+/* HERO — FIXED LAYOUT */
 #hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  overflow:hidden;padding-top:80px;
-}
-.hero-nav-spacer{height:80px}
-.hero-content{
-  flex:1;display:flex;flex-direction:column;
-  padding:0 3rem 2rem;
+  min-height:100vh;
+  padding-top:80px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  overflow:hidden;
   position:relative;
+}
+.hero-content{
+  padding:2rem 3rem 3rem;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  min-height:calc(100vh - 80px);
+  position:relative;z-index:2;
 }
 .hero-top{
   display:flex;justify-content:space-between;align-items:flex-start;
-  padding-top:2rem;
+  margin-bottom:1.5rem;
 }
 .hero-tag{
-  font-size:clamp(.75rem,1.4vw,1.1rem);
+  font-size:clamp(.75rem,1.4vw,1rem);
   color:rgba(215,226,234,.6);font-weight:300;letter-spacing:.2em;text-transform:uppercase;
 }
 .hero-tag span{color:var(--cyan)}
-.hero-heading-wrap{overflow:hidden;margin-top:.5rem}
 .hero-h1{
-  font-size:clamp(13vw,15vw,17.5vw);
+  font-size:clamp(3.5rem,9vw,11rem);
   font-weight:900;text-transform:uppercase;
-  letter-spacing:-.02em;line-height:.95;white-space:nowrap;
-  width:100%;
+  letter-spacing:-.02em;line-height:.92;
+  word-break:break-word;
+  white-space:normal;
+  max-width:100%;
 }
 .hero-bottom{
   display:flex;justify-content:space-between;align-items:flex-end;
-  margin-top:auto;padding-top:1.5rem;
+  margin-top:2rem;
 }
 .hero-desc-left{
-  font-size:clamp(.75rem,1.3vw,1.1rem);
+  font-size:clamp(.75rem,1.3vw,1rem);
   color:rgba(215,226,234,.7);font-weight:300;
   letter-spacing:.08em;text-transform:uppercase;line-height:1.5;
   max-width:260px;
@@ -162,6 +169,27 @@ nav{
 }
 .soc:hover{border-color:var(--cyan);color:var(--cyan)}
 
+/* PORTRAIT — FIXED SIZE */
+.hero-portrait-col{
+  width:clamp(180px,22vw,320px);
+  height:calc(100vh - 80px);
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:0;
+  padding-right:3rem;
+  position:relative;z-index:2;
+}
+.hero-portrait-col img{
+  width:100%;
+  max-height:85vh;
+  object-fit:cover;
+  object-position:top;
+  display:block;
+  border-radius:20px 20px 0 0;
+  filter:contrast(1.05) brightness(.95);
+  mask-image:linear-gradient(to top, transparent 0%, black 25%);
+  -webkit-mask-image:linear-gradient(to top, transparent 0%, black 25%);
+}
+
 /* CONTACT BTN */
 .contact-btn{
   padding:.75rem 2.5rem;
@@ -174,41 +202,153 @@ nav{
 }
 .contact-btn:hover{opacity:.85}
 
-/* PORTRAIT */
-.hero-portrait{
-  position:absolute;left:50%;transform:translateX(-50%);
-  bottom:0;z-index:10;
-  width:clamp(220px,30vw,460px);
-  transition:transform .3s ease;
-}
-.hero-portrait img{
-  width:100%;display:block;
-  filter:contrast(1.05) brightness(.95);
-}
-
 /* TYPING */
 .typing-wrap{
   font-family:'JetBrains Mono',monospace;font-size:clamp(.75rem,1.2vw,.95rem);
-  color:var(--cyan);letter-spacing:.05em;
+  color:var(--cyan);letter-spacing:.05em;margin-top:.4rem;
 }
 .typing-wrap::before{content:'$ ';color:var(--green)}
 #typed{border-right:2px solid var(--cyan);animation:blink .7s step-end infinite}
 @keyframes blink{50%{border-color:transparent}}
 
-/* MARQUEE */
-#marquee{
+/* STATS ROW */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--bg);position:relative;z-index:1;
+}
+.stat-b{
+  padding:2.5rem 2rem;text-align:center;
+  border-right:1px solid var(--border);transition:background .3s;
+}
+.stat-b:last-child{border-right:none}
+.stat-b:hover{background:rgba(255,255,255,.03)}
+.stat-n{
+  font-size:2.8rem;font-weight:900;letter-spacing:-.02em;
+  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-n .suf{color:var(--green);-webkit-text-fill-color:var(--green)}
+.stat-l{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-top:.3rem;font-family:'JetBrains Mono',monospace}
+.stat-emoji{font-size:1.5rem;margin-bottom:.5rem;display:block}
+
+/* ============================================================
+   CERTIFICATES GALLERY — replaces old marquee section
+   ============================================================ */
+#certificates{
   background:var(--bg);
-  padding:8rem 0 3rem;overflow:hidden;
+  padding:5rem 3rem;
+  border-top:1px solid var(--border);
 }
-.marquee-row{display:flex;gap:12px;margin-bottom:12px;will-change:transform}
-.marquee-img{
-  width:420px;height:270px;flex-shrink:0;
-  border-radius:16px;object-fit:cover;
-  background:var(--surface);
+.cert-inner{max-width:1200px;margin:0 auto}
+.cert-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;
 }
+.cert-header h2{
+  font-size:clamp(2.5rem,7vw,80px);
+  font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;
+}
+.cert-add-btn{
+  padding:.6rem 1.5rem;
+  border:1px solid var(--border);border-radius:100px;
+  background:rgba(255,255,255,.03);
+  color:var(--cyan);font-size:.8rem;font-weight:500;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.08em;
+  cursor:pointer;transition:all .25s;
+}
+.cert-add-btn:hover{border-color:var(--cyan);background:rgba(0,229,255,.06)}
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1.2rem;
+}
+.cert-card{
+  border:1px solid var(--border);border-radius:20px;
+  overflow:hidden;background:var(--surface);
+  transition:all .3s;position:relative;
+}
+.cert-card:hover{border-color:rgba(0,229,255,.35);transform:translateY(-4px)}
+.cert-card img{
+  width:100%;height:190px;object-fit:cover;display:block;
+  background:rgba(255,255,255,.03);
+}
+.cert-card-body{padding:1rem 1.2rem}
+.cert-card-title{
+  font-size:.9rem;font-weight:600;color:var(--white);
+  margin-bottom:.25rem;
+}
+.cert-card-sub{
+  font-size:.75rem;color:var(--gray);
+  font-family:'JetBrains Mono',monospace;
+}
+.cert-card-del{
+  position:absolute;top:.7rem;right:.7rem;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.3);
+  color:#ff6b6b;font-size:.65rem;
+  cursor:pointer;display:none;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.cert-card:hover .cert-card-del{display:flex}
+.cert-card-del:hover{background:rgba(255,80,80,.35)}
+
+/* Add cert modal */
+.cert-modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:8000;display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.cert-modal-backdrop.open{display:flex}
+.cert-modal{
+  background:#111418;border:1px solid var(--border);border-radius:20px;
+  padding:2rem;width:min(500px,90vw);
+}
+.cert-modal h3{
+  font-size:1.1rem;font-weight:600;color:var(--white);
+  margin-bottom:1.5rem;
+}
+.cert-modal .form-row{margin-bottom:1rem}
+.cert-modal label{
+  display:block;font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;color:var(--cyan);margin-bottom:.35rem;letter-spacing:.08em;
+}
+.cert-modal label::before{content:'> ';color:var(--green)}
+.cert-modal input{
+  width:100%;padding:.65rem 1rem;background:rgba(12,12,12,.6);
+  border:1px solid var(--border);border-radius:10px;color:var(--white);
+  font-family:'Kanit',sans-serif;font-size:.9rem;outline:none;transition:border-color .3s;
+}
+.cert-modal input:focus{border-color:var(--cyan)}
+.cert-modal-btns{display:flex;gap:.8rem;margin-top:1.5rem}
+.cert-modal-btns button{
+  flex:1;padding:.75rem;border-radius:100px;font-family:'Kanit',sans-serif;
+  font-weight:600;font-size:.88rem;letter-spacing:.08em;cursor:pointer;
+  text-transform:uppercase;transition:opacity .2s;
+}
+.cert-modal-btns .btn-add{
+  background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
+  border:none;color:#fff;
+  outline:2px solid rgba(255,255,255,.2);outline-offset:-3px;
+}
+.cert-modal-btns .btn-cancel{
+  background:transparent;border:1px solid var(--border);color:var(--gray);
+}
+.cert-modal-btns .btn-cancel:hover{border-color:var(--white);color:var(--white)}
+.cert-hint{
+  font-size:.72rem;color:var(--gray);font-family:'JetBrains Mono',monospace;
+  margin-top:.35rem;line-height:1.5;
+}
+.cert-empty{
+  grid-column:1/-1;
+  padding:4rem 2rem;text-align:center;
+  border:1px dashed var(--border);border-radius:20px;
+  color:var(--gray);
+}
+.cert-empty i{font-size:2rem;margin-bottom:1rem;display:block;color:rgba(0,229,255,.2)}
+.cert-empty p{font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7}
 
 /* SECTION COMMON */
-.section-wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:6rem 3rem}
 .sec-eyebrow{
   font-family:'JetBrains Mono',monospace;color:var(--green);
   font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.8rem;
@@ -269,7 +409,7 @@ nav{
 .tag.g{background:rgba(0,255,136,.07);border-color:rgba(0,255,136,.25);color:var(--green)}
 .tag:hover{transform:translateY(-2px)}
 
-/* SERVICES (experience/achievements) */
+/* SERVICES (experience) */
 #services{
   background:#fff;
   border-radius:50px 50px 0 0;
@@ -311,7 +451,9 @@ nav{
   font-family:'JetBrains Mono',monospace;
 }
 
-/* PROJECTS */
+/* ============================================================
+   PROJECTS — clean card list, NO sticky/overlap
+   ============================================================ */
 #projects{
   background:var(--bg);
   border-radius:50px 50px 0 0;
@@ -319,66 +461,72 @@ nav{
   padding:5rem 3rem 8rem;
 }
 .projects-inner{max-width:1100px;margin:0 auto}
-.proj-stack{display:flex;flex-direction:column;gap:0}
-.proj-sticky-wrap{
-  height:85vh;position:relative;
-}
+.proj-list{display:flex;flex-direction:column;gap:2rem;margin-top:1rem}
 .proj-card{
-  position:sticky;top:100px;
-  border-radius:40px;
-  border:2px solid rgba(215,226,234,.15);
-  background:var(--bg);
-  padding:2rem;
-  transform-origin:top center;
+  border-radius:32px;
+  border:1px solid rgba(215,226,234,.12);
+  background:var(--surface);
+  padding:2rem 2.5rem;
+  transition:border-color .3s,background .3s;
+}
+.proj-card:hover{
+  border-color:rgba(0,229,255,.25);
+  background:rgba(17,20,24,.9);
 }
 .proj-top-row{
   display:flex;justify-content:space-between;align-items:flex-start;
-  margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;
+  margin-bottom:1.2rem;flex-wrap:wrap;gap:1rem;
 }
 .proj-num{
-  font-size:clamp(3.5rem,8vw,100px);font-weight:900;
-  line-height:1;letter-spacing:-.03em;opacity:.15;
+  font-size:clamp(2.5rem,5vw,70px);font-weight:900;
+  line-height:1;letter-spacing:-.03em;opacity:.12;
   background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  flex-shrink:0;
 }
 .proj-meta{flex:1;padding:0 1.5rem}
 .proj-cat{
-  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(215,226,234,.4);font-weight:400;margin-bottom:.4rem;
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(215,226,234,.4);font-weight:400;margin-bottom:.35rem;
 }
 .proj-name{
-  font-size:clamp(1.2rem,2.5vw,2rem);font-weight:700;
-  color:var(--white);letter-spacing:-.01em;margin-bottom:.6rem;
+  font-size:clamp(1.1rem,2.2vw,1.7rem);font-weight:700;
+  color:var(--white);letter-spacing:-.01em;margin-bottom:.5rem;
 }
 .proj-desc-short{
-  font-size:clamp(.82rem,1.4vw,1rem);color:rgba(215,226,234,.55);
-  font-weight:300;line-height:1.6;max-width:500px;
+  font-size:clamp(.82rem,1.3vw,.95rem);color:rgba(215,226,234,.55);
+  font-weight:300;line-height:1.6;max-width:550px;
 }
 .live-btn{
-  padding:.65rem 1.8rem;border-radius:100px;
-  border:2px solid rgba(215,226,234,.4);
-  color:var(--white);font-size:.82rem;font-weight:500;
+  padding:.6rem 1.6rem;border-radius:100px;
+  border:1px solid rgba(215,226,234,.35);
+  color:var(--white);font-size:.78rem;font-weight:500;
   letter-spacing:.12em;text-transform:uppercase;
-  text-decoration:none;transition:background .2s;cursor:none;
-  display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;
+  text-decoration:none;transition:background .2s,border-color .2s;cursor:none;
+  display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;flex-shrink:0;
 }
-.live-btn:hover{background:rgba(215,226,234,.1)}
-.proj-imgs{display:flex;gap:1rem;margin-top:0}
-.proj-col1{display:flex;flex-direction:column;gap:.8rem;flex:4}
-.proj-col2{flex:6}
-.proj-img{
-  width:100%;object-fit:cover;display:block;
-  border-radius:24px;background:var(--surface);
-}
-.proj-col1 .proj-img:first-child{height:clamp(110px,14vw,200px)}
-.proj-col1 .proj-img:last-child{height:clamp(130px,18vw,280px)}
-.proj-col2 .proj-img{height:clamp(260px,35vw,500px)}
-.proj-tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.live-btn:hover{background:rgba(215,226,234,.1);border-color:var(--cyan)}
+.proj-tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
 .ptag{
   padding:.2rem .65rem;border-radius:100px;
   background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.2);
   font-size:.72rem;color:rgba(0,229,255,.8);
   font-family:'JetBrains Mono',monospace;
+}
+.proj-highlights{
+  display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;
+  padding-top:1rem;border-top:1px solid var(--border);
+}
+.proj-hl{
+  font-size:.72rem;color:rgba(215,226,234,.35);
+  font-family:'JetBrains Mono',monospace;
+  padding:.15rem .6rem;border-radius:6px;
+  background:rgba(255,255,255,.03);
+}
+.proj-hl.featured{
+  color:var(--green);
+  background:rgba(0,255,136,.06);
+  border:1px solid rgba(0,255,136,.2);
 }
 
 /* ACHIEVEMENTS */
@@ -495,35 +643,6 @@ footer span{color:var(--cyan)}
 .fade-delay-3{transition-delay:.3s}
 .fade-delay-4{transition-delay:.4s}
 
-/* ANIMATED CHARS */
-.char-wrap{display:inline;position:relative}
-.char{
-  display:inline-block;opacity:.15;
-  transition:opacity .05s;
-}
-.char.lit{opacity:1}
-
-/* STATS ROW */
-.stats-row{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:var(--bg);position:relative;z-index:1;
-}
-.stat-b{
-  padding:2.5rem 2rem;text-align:center;
-  border-right:1px solid var(--border);transition:background .3s;
-}
-.stat-b:last-child{border-right:none}
-.stat-b:hover{background:rgba(255,255,255,.03)}
-.stat-n{
-  font-size:2.8rem;font-weight:900;letter-spacing:-.02em;
-  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.stat-n .suf{color:var(--green);-webkit-text-fill-color:var(--green)}
-.stat-l{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-top:.3rem;font-family:'JetBrains Mono',monospace}
-.stat-emoji{font-size:1.5rem;margin-bottom:.5rem;display:block}
-
 /* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:1rem 1.5rem}
@@ -531,23 +650,19 @@ footer span{color:var(--cyan)}
   .hamburger{display:flex}
   body{cursor:auto}
   #cursor,#cursor-dot{display:none}
-  .hero-content{padding:0 1.5rem 2rem}
-  .hero-portrait{display:none}
-  .hero-h1{font-size:clamp(14vw,18vw,22vw);white-space:normal}
+  #hero{grid-template-columns:1fr;padding:80px 0 0}
+  .hero-content{padding:1.5rem 1.5rem 2rem;min-height:auto}
+  .hero-portrait-col{display:none}
+  .hero-h1{font-size:clamp(12vw,16vw,22vw)}
   #about{padding:5rem 1.5rem}
-  #skills,#services,#projects,#achievements,#contact{padding:4rem 1.5rem}
+  #skills,#services,#projects,#achievements,#contact,#certificates{padding:4rem 1.5rem}
   .contact-grid{grid-template-columns:1fr}
   .stats-row{grid-template-columns:repeat(2,1fr)}
-  .proj-imgs{flex-direction:column}
-  .proj-col1,.proj-col2{width:100%}
-  .proj-col1 .proj-img:first-child,.proj-col1 .proj-img:last-child,.proj-col2 .proj-img{height:200px}
-  .proj-card{border-radius:24px}
-  .proj-sticky-wrap{height:auto}
-  .proj-card{position:relative;top:0!important}
-  .proj-stack{gap:1.5rem}
+  .proj-top-row{flex-direction:column}
+  .live-btn{align-self:flex-start}
 }
 @media(max-width:500px){
-  .hero-h1{font-size:18vw}
+  .hero-h1{font-size:14vw}
 }
 </style>
 </head>
@@ -591,7 +706,7 @@ footer span{color:var(--cyan)}
   <div class="hero-content">
     <div class="hero-top">
       <div>
-        <div class="hero-tag" style="margin-bottom:.4rem">CS Student @ <span>ITU Lahore</span> &nbsp;·&nbsp; Open to Work</div>
+        <div class="hero-tag">CS Student @ <span>ITU Lahore</span> &nbsp;·&nbsp; Open to Work</div>
         <div class="typing-wrap"><span id="typed"></span></div>
       </div>
       <div class="hero-socials">
@@ -602,26 +717,22 @@ footer span{color:var(--cyan)}
       </div>
     </div>
 
-    <div class="hero-heading-wrap">
-      <h1 class="hero-h1 hero-heading">Hassan Ali Shah</h1>
-    </div>
+    <h1 class="hero-h1 hero-heading">Hassan<br>Ali Shah</h1>
 
     <div class="hero-bottom">
       <p class="hero-desc-left">
-        Full Stack Developer &amp; AI/ML Engineer. National Hackathon Winner. Building Real Products.
+        Full Stack Developer &amp; AI/ML Engineer.<br>National Hackathon Winner.<br>Building Real Products.
       </p>
-      <div>
-        <a href="#contact" class="contact-btn">Contact Me</a>
-      </div>
+      <a href="#contact" class="contact-btn">Contact Me</a>
     </div>
   </div>
 
-  <!-- Portrait (hidden on mobile) -->
-  <div class="hero-portrait" id="portrait">
+  <!-- Portrait — properly sized column -->
+  <div class="hero-portrait-col" id="portrait-col">
     <img
       src="hassan.jpg"
       alt="Hassan Ali Shah"
-      onerror="this.outerHTML='<div style=\'width:100%;height:400px;display:flex;align-items:center;justify-content:center;font-size:8rem\'>👨‍💻</div>'"
+      onerror="this.style.display='none'"
     >
   </div>
 </section>
@@ -650,10 +761,48 @@ footer span{color:var(--cyan)}
   </div>
 </div>
 
-<!-- MARQUEE -->
-<div id="marquee">
-  <div class="marquee-row" id="row1"></div>
-  <div class="marquee-row" id="row2"></div>
+<!-- CERTIFICATES GALLERY -->
+<section id="certificates">
+  <div class="cert-inner">
+    <div class="cert-header">
+      <div>
+        <div class="sec-eyebrow">// certificates &amp; media</div>
+        <h2 class="hero-heading fade-up">Gallery</h2>
+      </div>
+      <button class="cert-add-btn" onclick="openCertModal()"><i class="fas fa-plus" style="margin-right:.4rem"></i>Add Image</button>
+    </div>
+    <div class="cert-grid" id="certGrid">
+      <!-- default empty state -->
+      <div class="cert-empty" id="certEmpty">
+        <i class="fas fa-images"></i>
+        <p>No images yet.<br>Click <strong style="color:var(--cyan)">Add Image</strong> and paste a GitHub raw image URL<br>to showcase your certificates, hackathon wins, and more.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add Certificate Modal -->
+<div class="cert-modal-backdrop" id="certModalBackdrop" onclick="closeCertModalBackdrop(event)">
+  <div class="cert-modal">
+    <h3>📎 Add Certificate / Image</h3>
+    <div class="form-row">
+      <label>image url (github raw / direct link)</label>
+      <input type="url" id="certUrl" placeholder="https://raw.githubusercontent.com/...">
+      <p class="cert-hint">Go to your GitHub repo → open image → click "Raw" → copy URL.<br>Works with any direct image link (jpg, png, gif, webp).</p>
+    </div>
+    <div class="form-row">
+      <label>title</label>
+      <input type="text" id="certTitle" placeholder="e.g. NASA Space Apps — Winner Certificate">
+    </div>
+    <div class="form-row">
+      <label>subtitle / issuer (optional)</label>
+      <input type="text" id="certSub" placeholder="e.g. NASA, 2025">
+    </div>
+    <div class="cert-modal-btns">
+      <button class="btn-cancel" onclick="closeCertModal()">Cancel</button>
+      <button class="btn-add" onclick="addCert()">Add Image</button>
+    </div>
+  </div>
 </div>
 
 <!-- ABOUT -->
@@ -737,7 +886,7 @@ footer span{color:var(--cyan)}
   </div>
 </section>
 
-<!-- EXPERIENCE / ACHIEVEMENTS as SERVICES style -->
+<!-- EXPERIENCE -->
 <section id="services">
   <div class="services-inner">
     <h2 class="sec-title-dark">Experience</h2>
@@ -770,301 +919,174 @@ footer span{color:var(--cyan)}
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- PROJECTS — clean list, no sticky overlap -->
 <section id="projects">
   <div class="projects-inner">
     <div class="sec-eyebrow">// git_log --projects</div>
     <h2 class="sec-big-title hero-heading fade-up">Projects</h2>
 
-    <div class="proj-stack">
+    <div class="proj-list">
 
-      <!-- Project 1: Cost-Based Query Optimizer -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc1">
-          <div class="proj-top-row">
-            <div class="proj-num">01</div>
-            <div class="proj-meta">
-              <div class="proj-cat">Systems / C++</div>
-              <div class="proj-name">Cost-Based Query Optimizer</div>
-              <div class="proj-desc-short">C/C++ SQL optimizer with Selinger DP join ordering & 4 rewrite rules. Achieves 100–1000× speedups over naive plans. Includes SQL shell, EXPLAIN, catalog cache & benchmark suite.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/Cost_Based_Query_Optimizer" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up">
+        <div class="proj-top-row">
+          <div class="proj-num">01</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Systems / C++</div>
+            <div class="proj-name">🗄️ Cost-Based Query Optimizer</div>
+            <div class="proj-desc-short">C/C++ SQL optimizer with Selinger DP join ordering & 4 rewrite rules. Achieves 100–1000× speedups over naive plans. Includes SQL shell, EXPLAIN, catalog cache & benchmark suite.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">C++</span><span class="ptag">DBMS</span><span class="ptag">SQL</span><span class="ptag">Algorithms</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#060f1a,#0a1e30);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🗄️</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#041020,#081828);display:flex;align-items:center;justify-content:center;padding:1.2rem;">
-                <pre style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:.68rem;opacity:.8;line-height:1.7">SELECT *
-FROM orders o
-JOIN users u
-  ON o.uid = u.id
-WHERE u.city = 'LHR'
--- Cost: 42 (was 41,000)
--- Speedup: 1000×</pre>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#040c14,#071828);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2.5rem">
-                <div style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;letter-spacing:.05em;">1000×</div>
-                <div style="color:rgba(215,226,234,.4);font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;">SQL Speedup</div>
-                <div style="width:80%;height:2px;background:linear-gradient(90deg,#00ff88,#00e5ff);border-radius:2px;"></div>
-                <div style="color:rgba(215,226,234,.35);font-size:.75rem;font-family:'JetBrains Mono',monospace;text-align:center;line-height:1.9">Selinger DP Join Ordering<br>Predicate Pushdown<br>Index Selection<br>Query Rewrite Rules</div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/Cost_Based_Query_Optimizer" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">C++</span><span class="ptag">DBMS</span><span class="ptag">SQL</span><span class="ptag">Algorithms</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl featured">⚡ 1000× SQL Speedup</span>
+          <span class="proj-hl">Selinger DP Join Ordering</span>
+          <span class="proj-hl">Predicate Pushdown</span>
+          <span class="proj-hl">Index Selection</span>
+          <span class="proj-hl">Query Rewrite Rules</span>
         </div>
       </div>
 
-      <!-- Project 2: Vortex OS -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc2">
-          <div class="proj-top-row">
-            <div class="proj-num">02</div>
-            <div class="proj-meta">
-              <div class="proj-cat">OS Dev / Python</div>
-              <div class="proj-name">VORTEX OS — Custom Linux Environment</div>
-              <div class="proj-desc-short">Custom Linux-based OS environment on Ubuntu — hand-crafted Python shell, 6 live-switchable cyberpunk themes, command chaining, alias engine & persistent history. Evolving across 15 phases toward a fully bootable Linux distro.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/Vortex_OS" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up fade-delay-1">
+        <div class="proj-top-row">
+          <div class="proj-num">02</div>
+          <div class="proj-meta">
+            <div class="proj-cat">OS Dev / Python</div>
+            <div class="proj-name">🖥️ VORTEX OS — Custom Linux Environment</div>
+            <div class="proj-desc-short">Custom Linux-based OS environment on Ubuntu — hand-crafted Python shell, 6 live-switchable cyberpunk themes, command chaining, alias engine & persistent history. Evolving across 15 phases toward a fully bootable Linux distro.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">Python</span><span class="ptag">Linux</span><span class="ptag">OS Dev</span><span class="ptag">Shell</span><span class="ptag">PyQt6</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#0d001a,#1a0033);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🖥️</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#0a0020,#130035);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">6 Cyberpunk Themes ✓</div>
-                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Command Chaining ✓</div>
-                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Alias Engine ✓</div>
-                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Persistent History ✓</div>
-                <div style="color:#B600A8;font-size:.72rem;font-family:'JetBrains Mono',monospace;">15 Phase Roadmap ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#080015,#100025);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem">
-                <div style="font-size:3.5rem">🚀</div>
-                <div style="color:#B600A8;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;letter-spacing:.1em;">VORTEX OS<br><span style="color:rgba(215,226,234,.4);font-size:.78rem">Evolving toward a bootable<br>Linux distro — Phase 15</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/Vortex_OS" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">Python</span><span class="ptag">Linux</span><span class="ptag">OS Dev</span><span class="ptag">Shell</span><span class="ptag">PyQt6</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl">6 Cyberpunk Themes</span>
+          <span class="proj-hl">Command Chaining</span>
+          <span class="proj-hl">Alias Engine</span>
+          <span class="proj-hl">Persistent History</span>
+          <span class="proj-hl featured">🚀 Phase 15 Roadmap</span>
         </div>
       </div>
 
-      <!-- Project 3: FairGig -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc3">
-          <div class="proj-top-row">
-            <div class="proj-num">03</div>
-            <div class="proj-meta">
-              <div class="proj-cat">Full Stack · Hackathon</div>
-              <div class="proj-name">FairGig — Freelance Platform</div>
-              <div class="proj-desc-short">Full-stack freelance marketplace built for Softect 2026 — Top 5. Features real-time chat, job posting, proposals & complete payment flow with user dashboards.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/Softect26_project" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up">
+        <div class="proj-top-row">
+          <div class="proj-num">03</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Full Stack · Hackathon</div>
+            <div class="proj-name">💼 FairGig — Freelance Platform</div>
+            <div class="proj-desc-short">Full-stack freelance marketplace built for Softect 2026 — Top 5. Features real-time chat, job posting, proposals & complete payment flow with user dashboards.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">MERN</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Socket.IO</span><span class="ptag">Softect Top 5</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#071a07,#0d2e0d);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">💼</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#071207,#0a1a0a);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Real-time Chat ✓</div>
-                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Job Posting ✓</div>
-                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Proposals System ✓</div>
-                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Payment Flow ✓</div>
-                <div style="color:#00ff88;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Admin Dashboard ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#051205,#081a08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-                <div style="font-size:3.5rem">🏆</div>
-                <div style="color:#00ff88;font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-align:center">Softect 2026<br><span style="font-size:.85rem;opacity:.6">Top 5 Nationwide</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/Softect26_project" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">MERN</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Socket.IO</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl featured">🏆 Softect 2026 — Top 5</span>
+          <span class="proj-hl">Real-time Chat</span>
+          <span class="proj-hl">Job Posting</span>
+          <span class="proj-hl">Payment Flow</span>
+          <span class="proj-hl">Admin Dashboard</span>
         </div>
       </div>
 
-      <!-- Project 4: Fleet Crisis Command -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc4">
-          <div class="proj-top-row">
-            <div class="proj-num">04</div>
-            <div class="proj-meta">
-              <div class="proj-cat">AI-Powered · Real-time</div>
-              <div class="proj-name">Fleet Crisis Command</div>
-              <div class="proj-desc-short">Real-time naval fleet management system — CodeRush ITU 2026 Top 3. Live ship tracking, AI-powered crisis advisor & distress signal handling. Built with Next.js + Flask + Socket.IO + Docker.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/webdev" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up fade-delay-1">
+        <div class="proj-top-row">
+          <div class="proj-num">04</div>
+          <div class="proj-meta">
+            <div class="proj-cat">AI-Powered · Real-time</div>
+            <div class="proj-name">🚢 Fleet Crisis Command</div>
+            <div class="proj-desc-short">Real-time naval fleet management system — CodeRush ITU 2026 Top 3. Live ship tracking, AI-powered crisis advisor & distress signal handling. Built with Next.js + Flask + Socket.IO + Docker.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">Next.js</span><span class="ptag">Flask</span><span class="ptag">Socket.IO</span><span class="ptag">AI Powered</span><span class="ptag">Docker</span><span class="ptag">CodeRush Top 3</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#00101a,#001e30);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🚢</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#000e18,#001828);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Live Ship Tracking ✓</div>
-                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">AI Crisis Advisor ✓</div>
-                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Distress Signals ✓</div>
-                <div style="color:#00e5ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Real-time Socket.IO ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#000c18,#001020);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-                <div style="font-size:3.5rem">🥉</div>
-                <div style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-align:center">CodeRush ITU 2026<br><span style="font-size:.85rem;opacity:.6">Top 3</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/webdev" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">Next.js</span><span class="ptag">Flask</span><span class="ptag">Socket.IO</span><span class="ptag">AI Powered</span><span class="ptag">Docker</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl featured">🥉 CodeRush ITU 2026 — Top 3</span>
+          <span class="proj-hl">Live Ship Tracking</span>
+          <span class="proj-hl">AI Crisis Advisor</span>
+          <span class="proj-hl">Distress Signals</span>
         </div>
       </div>
 
-      <!-- Project 5: Zaiqa On Wheels -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc5">
-          <div class="proj-top-row">
-            <div class="proj-num">05</div>
-            <div class="proj-meta">
-              <div class="proj-cat">Full Stack / E-Commerce</div>
-              <div class="proj-name">Zaiqa On Wheels</div>
-              <div class="proj-desc-short">Full-stack food & groceries ordering platform. Includes user authentication, dynamic menu browsing, cart management, real-time order tracking & a complete admin dashboard for restaurant management.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/Zaiqa-On-Wheels-Food-and-groceries-ordering-website" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up">
+        <div class="proj-top-row">
+          <div class="proj-num">05</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Full Stack / E-Commerce</div>
+            <div class="proj-name">🍔 Zaiqa On Wheels</div>
+            <div class="proj-desc-short">Full-stack food & groceries ordering platform. Includes user authentication, dynamic menu browsing, cart management, real-time order tracking & a complete admin dashboard for restaurant management.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Full Stack</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#1a0a00,#2e1500);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🍔</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#180900,#280f00);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">User Auth ✓</div>
-                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Dynamic Menu ✓</div>
-                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Cart Management ✓</div>
-                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Order Tracking ✓</div>
-                <div style="color:#ff8c00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Admin Dashboard ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#140700,#201000);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-                <div style="font-size:3.5rem">🍕</div>
-                <div style="color:#ff8c00;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;letter-spacing:.05em;">Food &amp; Groceries<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">Delivery Platform</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/Zaiqa-On-Wheels-Food-and-groceries-ordering-website" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Full Stack</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl">User Auth</span><span class="proj-hl">Dynamic Menu</span>
+          <span class="proj-hl">Cart Management</span><span class="proj-hl">Order Tracking</span>
         </div>
       </div>
 
-      <!-- Project 6: Rental Car App -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc6">
-          <div class="proj-top-row">
-            <div class="proj-num">06</div>
-            <div class="proj-meta">
-              <div class="proj-cat">Full Stack / Web App</div>
-              <div class="proj-name">Rental Car App</div>
-              <div class="proj-desc-short">Car rental web application with full booking management, user profiles, car listings, real-time availability tracking & a comprehensive admin control panel for fleet management.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/rental_car_app_project" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up fade-delay-1">
+        <div class="proj-top-row">
+          <div class="proj-num">06</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Full Stack / Web App</div>
+            <div class="proj-name">🚗 Rental Car App</div>
+            <div class="proj-desc-short">Car rental web application with full booking management, user profiles, car listings, real-time availability tracking & a comprehensive admin control panel for fleet management.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">React</span><span class="ptag">Express</span><span class="ptag">MySQL</span><span class="ptag">Full Stack</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#00101a,#001825);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🚗</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#000e18,#001420);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Booking System ✓</div>
-                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Car Listings ✓</div>
-                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Availability Tracker ✓</div>
-                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">User Profiles ✓</div>
-                <div style="color:#4db8ff;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Admin Panel ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#000c14,#000e1a);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-                <div style="font-size:3.5rem">🏎️</div>
-                <div style="color:#4db8ff;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;">Fleet Management<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">React + Express + MySQL</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/rental_car_app_project" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">React</span><span class="ptag">Express</span><span class="ptag">MySQL</span><span class="ptag">Full Stack</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl">Booking System</span><span class="proj-hl">Car Listings</span>
+          <span class="proj-hl">Availability Tracker</span><span class="proj-hl">Admin Panel</span>
         </div>
       </div>
 
-      <!-- Project 7: Scrabble (OOP) -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc7">
-          <div class="proj-top-row">
-            <div class="proj-num">07</div>
-            <div class="proj-meta">
-              <div class="proj-cat">C++ / OOP / Game Dev</div>
-              <div class="proj-name">Scrabble Game (OOP)</div>
-              <div class="proj-desc-short">Fully functional Scrabble game in C++ using core OOP principles. Features complete tile management, score tracking, board rendering, dictionary validation & multi-player turn handling.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/Oop-Sem-proj-Scrabble" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up">
+        <div class="proj-top-row">
+          <div class="proj-num">07</div>
+          <div class="proj-meta">
+            <div class="proj-cat">C++ / OOP / Game Dev</div>
+            <div class="proj-name">🔤 Scrabble Game (OOP)</div>
+            <div class="proj-desc-short">Fully functional Scrabble game in C++ using core OOP principles. Features complete tile management, score tracking, board rendering, dictionary validation & multi-player turn handling.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">C++</span><span class="ptag">OOP</span><span class="ptag">Game Dev</span><span class="ptag">DSA</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#1a1000,#2e1c00);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🔤</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#180e00,#281600);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Tile Management ✓</div>
-                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Score Tracking ✓</div>
-                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Board Rendering ✓</div>
-                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Dictionary Validation ✓</div>
-                <div style="color:#ffcc00;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Multiplayer Turns ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#140b00,#1e1100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-                <div style="font-size:3.5rem">🎯</div>
-                <div style="color:#ffcc00;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;">OOP Principles<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">C++ · Inheritance · Polymorphism</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/Oop-Sem-proj-Scrabble" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">C++</span><span class="ptag">OOP</span><span class="ptag">Game Dev</span><span class="ptag">DSA</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl">Tile Management</span><span class="proj-hl">Score Tracking</span>
+          <span class="proj-hl">Dictionary Validation</span><span class="proj-hl">Multiplayer Turns</span>
         </div>
       </div>
 
-      <!-- Project 8: Task Flow Pro -->
-      <div class="proj-sticky-wrap">
-        <div class="proj-card" id="pc8">
-          <div class="proj-top-row">
-            <div class="proj-num">08</div>
-            <div class="proj-meta">
-              <div class="proj-cat">Full Stack / Productivity</div>
-              <div class="proj-name">Task Flow Pro</div>
-              <div class="proj-desc-short">Powerful task management application designed to streamline productivity and workflow. Features task creation, organization, priority management & an intuitive interface for tracking progress.</div>
-            </div>
-            <a href="https://github.com/Hassan-Ali-17/Task_Flow_Pro" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+      <div class="proj-card fade-up fade-delay-1">
+        <div class="proj-top-row">
+          <div class="proj-num">08</div>
+          <div class="proj-meta">
+            <div class="proj-cat">Full Stack / Productivity</div>
+            <div class="proj-name">✅ Task Flow Pro</div>
+            <div class="proj-desc-short">Powerful task management application designed to streamline productivity and workflow. Features task creation, organization, priority management & an intuitive interface for tracking progress.</div>
           </div>
-          <div class="proj-tags-row">
-            <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Full Stack</span>
-          </div>
-          <div class="proj-imgs" style="margin-top:1.5rem">
-            <div class="proj-col1">
-              <div class="proj-img" style="height:clamp(110px,14vw,200px);background:linear-gradient(135deg,#0a001a,#150030);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">✅</div>
-              <div class="proj-img" style="height:clamp(130px,18vw,280px);background:linear-gradient(135deg,#080015,#100025);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;padding:1rem">
-                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Task Creation ✓</div>
-                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Priority Management ✓</div>
-                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Progress Tracking ✓</div>
-                <div style="color:#a855f7;font-size:.72rem;font-family:'JetBrains Mono',monospace;">Team Organization ✓</div>
-              </div>
-            </div>
-            <div class="proj-col2">
-              <div class="proj-img" style="height:clamp(260px,35vw,500px);background:linear-gradient(145deg,#060010,#0c0020);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-                <div style="font-size:3.5rem">📋</div>
-                <div style="color:#a855f7;font-family:'JetBrains Mono',monospace;font-size:1rem;text-align:center;">Productivity Suite<br><span style="font-size:.8rem;opacity:.5;color:rgba(215,226,234,.4)">React + Node.js + MongoDB</span></div>
-              </div>
-            </div>
-          </div>
+          <a href="https://github.com/Hassan-Ali-17/Task_Flow_Pro" target="_blank" class="live-btn"><i class="fab fa-github"></i> View Code</a>
+        </div>
+        <div class="proj-tags-row">
+          <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">Full Stack</span>
+        </div>
+        <div class="proj-highlights">
+          <span class="proj-hl">Task Creation</span><span class="proj-hl">Priority Management</span>
+          <span class="proj-hl">Progress Tracking</span><span class="proj-hl">Team Organization</span>
         </div>
       </div>
 
@@ -1176,6 +1198,60 @@ function showToast(type,msg){
   setTimeout(()=>t.classList.remove('show'),5000);
 }
 
+/* CERTIFICATES */
+let certs = JSON.parse(localStorage.getItem('hcerts')||'[]');
+function renderCerts(){
+  const grid=document.getElementById('certGrid');
+  const empty=document.getElementById('certEmpty');
+  // remove old cards
+  grid.querySelectorAll('.cert-card').forEach(c=>c.remove());
+  if(certs.length===0){empty.style.display='';return}
+  empty.style.display='none';
+  certs.forEach((c,i)=>{
+    const card=document.createElement('div');
+    card.className='cert-card';
+    card.innerHTML=`
+      <img src="${c.url}" alt="${c.title}" loading="lazy" onerror="this.style.opacity='.3';this.alt='Image not found'">
+      <div class="cert-card-body">
+        <div class="cert-card-title">${c.title||'Certificate'}</div>
+        ${c.sub?`<div class="cert-card-sub">${c.sub}</div>`:''}
+      </div>
+      <button class="cert-card-del" onclick="deleteCert(${i})" title="Remove"><i class="fas fa-times"></i></button>
+    `;
+    grid.appendChild(card);
+  });
+}
+function deleteCert(i){
+  certs.splice(i,1);
+  localStorage.setItem('hcerts',JSON.stringify(certs));
+  renderCerts();
+}
+function openCertModal(){
+  document.getElementById('certModalBackdrop').classList.add('open');
+  document.getElementById('certUrl').focus();
+}
+function closeCertModal(){
+  document.getElementById('certModalBackdrop').classList.remove('open');
+  document.getElementById('certUrl').value='';
+  document.getElementById('certTitle').value='';
+  document.getElementById('certSub').value='';
+}
+function closeCertModalBackdrop(e){
+  if(e.target===document.getElementById('certModalBackdrop'))closeCertModal();
+}
+function addCert(){
+  const url=document.getElementById('certUrl').value.trim();
+  const title=document.getElementById('certTitle').value.trim();
+  const sub=document.getElementById('certSub').value.trim();
+  if(!url){showToast('error','⚠ Please enter an image URL.');return}
+  certs.push({url,title,sub});
+  localStorage.setItem('hcerts',JSON.stringify(certs));
+  renderCerts();
+  closeCertModal();
+  showToast('success','✓ Image added!');
+}
+renderCerts();
+
 /* CURSOR */
 const cur=document.getElementById('cursor'),curDot=document.getElementById('cursor-dot');
 let mx=0,my=0,px=0,py=0,angle=0,hov=false;
@@ -1266,98 +1342,6 @@ const fadeObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');fadeObs.unobserve(e.target)}});
 },{threshold:.08});
 document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
-
-/* MARQUEE IMAGES (scroll-driven) */
-const row1Imgs=[
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
-  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
-  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
-  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
-  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
-  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-];
-const row2Imgs=[
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
-  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
-  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
-  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
-  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
-  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
-  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
-  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
-  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
-  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
-];
-function buildRow(rowEl,imgs){
-  const triple=[...imgs,...imgs,...imgs];
-  triple.forEach(src=>{
-    const img=document.createElement('img');
-    img.src=src;img.loading='lazy';img.className='marquee-img';
-    img.style.willChange='transform';
-    rowEl.appendChild(img);
-  });
-}
-buildRow(document.getElementById('row1'),row1Imgs);
-buildRow(document.getElementById('row2'),row2Imgs);
-
-const marqueeEl=document.getElementById('marquee');
-const row1El=document.getElementById('row1');
-const row2El=document.getElementById('row2');
-function updateMarquee(){
-  const rect=marqueeEl.getBoundingClientRect();
-  const offset=(window.scrollY-marqueeEl.offsetTop+window.innerHeight)*0.3;
-  row1El.style.transform=`translateX(${offset-200}px)`;
-  row2El.style.transform=`translateX(${-(offset-200)}px)`;
-}
-window.addEventListener('scroll',updateMarquee,{passive:true});
-updateMarquee();
-
-/* MAGNETIC PORTRAIT */
-const portrait=document.getElementById('portrait');
-if(portrait){
-  document.addEventListener('mousemove',e=>{
-    const rect=portrait.getBoundingClientRect();
-    const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
-    const dx=e.clientX-cx,dy=e.clientY-cy;
-    const dist=Math.sqrt(dx*dx+dy*dy);
-    if(dist<300){
-      const strength=3;
-      portrait.style.transform=`translateX(calc(-50% + ${dx/strength}px)) translateY(${dy/strength}px)`;
-      portrait.style.transition='transform .3s ease-out';
-    } else {
-      portrait.style.transform='translateX(-50%)';
-      portrait.style.transition='transform .6s ease-in-out';
-    }
-  });
-}
-
-/* STICKY PROJECT CARDS — scale down as you scroll past */
-const cards=[
-  document.getElementById('pc1'),
-  document.getElementById('pc2'),
-  document.getElementById('pc3'),
-  document.getElementById('pc4'),
-];
-function updateCards(){
-  cards.forEach((card,i)=>{
-    if(!card)return;
-    const wrap=card.parentElement;
-    const rect=wrap.getBoundingClientRect();
-    const progress=Math.max(0,Math.min(1,(-rect.top)/(rect.height-window.innerHeight*.85)));
-    const scaleTarget=1-(cards.length-1-i)*0.03;
-    const scale=1-(scaleTarget<1?(1-scaleTarget)*progress:0);
-    card.style.transform=`scale(${scale})`;
-    card.style.transformOrigin='top center';
-    card.style.top=`${100+i*28}px`;
-  });
-}
-window.addEventListener('scroll',updateCards,{passive:true});
-updateCards();
 </script>
 </body>
 </html>
