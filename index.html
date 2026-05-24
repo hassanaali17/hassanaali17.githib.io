@@ -233,120 +233,41 @@ nav{
 .stat-emoji{font-size:1.5rem;margin-bottom:.5rem;display:block}
 
 /* ============================================================
-   CERTIFICATES GALLERY — replaces old marquee section
+   MARQUEE — certificates / gallery (scroll-driven)
    ============================================================ */
-#certificates{
+#marquee{
   background:var(--bg);
-  padding:5rem 3rem;
-  border-top:1px solid var(--border);
+  padding:5rem 0 3rem;
+  overflow:hidden;
 }
-.cert-inner{max-width:1200px;margin:0 auto}
-.cert-header{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;
+.marquee-label{
+  text-align:center;margin-bottom:2.5rem;padding:0 3rem;
 }
-.cert-header h2{
-  font-size:clamp(2.5rem,7vw,80px);
+.marquee-label .sec-eyebrow{display:inline-block;margin-bottom:.5rem}
+.marquee-label h2{
+  font-size:clamp(3rem,8vw,90px);
   font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;
 }
-.cert-add-btn{
-  padding:.6rem 1.5rem;
-  border:1px solid var(--border);border-radius:100px;
-  background:rgba(255,255,255,.03);
-  color:var(--cyan);font-size:.8rem;font-weight:500;
-  font-family:'JetBrains Mono',monospace;letter-spacing:.08em;
-  cursor:pointer;transition:all .25s;
+.marquee-row{display:flex;gap:14px;margin-bottom:14px;will-change:transform}
+.marquee-img{
+  width:400px;height:260px;flex-shrink:0;
+  border-radius:18px;object-fit:cover;display:block;
+  background:var(--surface);
+  border:1px solid var(--border);
+  transition:border-color .3s,transform .3s;
 }
-.cert-add-btn:hover{border-color:var(--cyan);background:rgba(0,229,255,.06)}
-.cert-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:1.2rem;
-}
-.cert-card{
-  border:1px solid var(--border);border-radius:20px;
-  overflow:hidden;background:var(--surface);
-  transition:all .3s;position:relative;
-}
-.cert-card:hover{border-color:rgba(0,229,255,.35);transform:translateY(-4px)}
-.cert-card img{
-  width:100%;height:190px;object-fit:cover;display:block;
-  background:rgba(255,255,255,.03);
-}
-.cert-card-body{padding:1rem 1.2rem}
-.cert-card-title{
-  font-size:.9rem;font-weight:600;color:var(--white);
-  margin-bottom:.25rem;
-}
-.cert-card-sub{
-  font-size:.75rem;color:var(--gray);
+.marquee-img:hover{border-color:rgba(0,229,255,.4);transform:scale(1.02)}
+/* placeholder shown when you haven't added a real image yet */
+.marquee-ph{
+  width:400px;height:260px;flex-shrink:0;
+  border-radius:18px;
+  border:1px dashed rgba(215,226,234,.1);
+  background:linear-gradient(135deg,#0d1117,#111418);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
   font-family:'JetBrains Mono',monospace;
 }
-.cert-card-del{
-  position:absolute;top:.7rem;right:.7rem;
-  width:26px;height:26px;border-radius:50%;
-  background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.3);
-  color:#ff6b6b;font-size:.65rem;
-  cursor:pointer;display:none;align-items:center;justify-content:center;
-  transition:all .2s;
-}
-.cert-card:hover .cert-card-del{display:flex}
-.cert-card-del:hover{background:rgba(255,80,80,.35)}
-
-/* Add cert modal */
-.cert-modal-backdrop{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);
-  z-index:8000;display:none;align-items:center;justify-content:center;
-  backdrop-filter:blur(6px);
-}
-.cert-modal-backdrop.open{display:flex}
-.cert-modal{
-  background:#111418;border:1px solid var(--border);border-radius:20px;
-  padding:2rem;width:min(500px,90vw);
-}
-.cert-modal h3{
-  font-size:1.1rem;font-weight:600;color:var(--white);
-  margin-bottom:1.5rem;
-}
-.cert-modal .form-row{margin-bottom:1rem}
-.cert-modal label{
-  display:block;font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;color:var(--cyan);margin-bottom:.35rem;letter-spacing:.08em;
-}
-.cert-modal label::before{content:'> ';color:var(--green)}
-.cert-modal input{
-  width:100%;padding:.65rem 1rem;background:rgba(12,12,12,.6);
-  border:1px solid var(--border);border-radius:10px;color:var(--white);
-  font-family:'Kanit',sans-serif;font-size:.9rem;outline:none;transition:border-color .3s;
-}
-.cert-modal input:focus{border-color:var(--cyan)}
-.cert-modal-btns{display:flex;gap:.8rem;margin-top:1.5rem}
-.cert-modal-btns button{
-  flex:1;padding:.75rem;border-radius:100px;font-family:'Kanit',sans-serif;
-  font-weight:600;font-size:.88rem;letter-spacing:.08em;cursor:pointer;
-  text-transform:uppercase;transition:opacity .2s;
-}
-.cert-modal-btns .btn-add{
-  background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
-  border:none;color:#fff;
-  outline:2px solid rgba(255,255,255,.2);outline-offset:-3px;
-}
-.cert-modal-btns .btn-cancel{
-  background:transparent;border:1px solid var(--border);color:var(--gray);
-}
-.cert-modal-btns .btn-cancel:hover{border-color:var(--white);color:var(--white)}
-.cert-hint{
-  font-size:.72rem;color:var(--gray);font-family:'JetBrains Mono',monospace;
-  margin-top:.35rem;line-height:1.5;
-}
-.cert-empty{
-  grid-column:1/-1;
-  padding:4rem 2rem;text-align:center;
-  border:1px dashed var(--border);border-radius:20px;
-  color:var(--gray);
-}
-.cert-empty i{font-size:2rem;margin-bottom:1rem;display:block;color:rgba(0,229,255,.2)}
-.cert-empty p{font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7}
+.marquee-ph-icon{font-size:2rem;opacity:.25}
+.marquee-ph-label{font-size:.65rem;color:rgba(215,226,234,.2);letter-spacing:.15em;text-transform:uppercase}
 
 /* SECTION COMMON */
 .sec-eyebrow{
@@ -643,6 +564,13 @@ footer span{color:var(--cyan)}
 .fade-delay-3{transition-delay:.3s}
 .fade-delay-4{transition-delay:.4s}
 
+/* ANIMATED CHARS */
+.char{
+  display:inline-block;opacity:.15;
+  transition:opacity .05s;
+}
+.char.lit{opacity:1}
+
 /* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:1rem 1.5rem}
@@ -761,47 +689,89 @@ footer span{color:var(--cyan)}
   </div>
 </div>
 
-<!-- CERTIFICATES GALLERY -->
-<section id="certificates">
-  <div class="cert-inner">
-    <div class="cert-header">
-      <div>
-        <div class="sec-eyebrow">// certificates &amp; media</div>
-        <h2 class="hero-heading fade-up">Gallery</h2>
-      </div>
-      <button class="cert-add-btn" onclick="openCertModal()"><i class="fas fa-plus" style="margin-right:.4rem"></i>Add Image</button>
-    </div>
-    <div class="cert-grid" id="certGrid">
-      <!-- default empty state -->
-      <div class="cert-empty" id="certEmpty">
-        <i class="fas fa-images"></i>
-        <p>No images yet.<br>Click <strong style="color:var(--cyan)">Add Image</strong> and paste a GitHub raw image URL<br>to showcase your certificates, hackathon wins, and more.</p>
-      </div>
-    </div>
+<!-- MARQUEE / GALLERY -->
+<div id="marquee">
+  <div class="marquee-label">
+    <div class="sec-eyebrow">// certificates &amp; achievements</div>
+    <h2 class="hero-heading">Gallery</h2>
   </div>
-</section>
 
-<!-- Add Certificate Modal -->
-<div class="cert-modal-backdrop" id="certModalBackdrop" onclick="closeCertModalBackdrop(event)">
-  <div class="cert-modal">
-    <h3>📎 Add Certificate / Image</h3>
-    <div class="form-row">
-      <label>image url (github raw / direct link)</label>
-      <input type="url" id="certUrl" placeholder="https://raw.githubusercontent.com/...">
-      <p class="cert-hint">Go to your GitHub repo → open image → click "Raw" → copy URL.<br>Works with any direct image link (jpg, png, gif, webp).</p>
-    </div>
-    <div class="form-row">
-      <label>title</label>
-      <input type="text" id="certTitle" placeholder="e.g. NASA Space Apps — Winner Certificate">
-    </div>
-    <div class="form-row">
-      <label>subtitle / issuer (optional)</label>
-      <input type="text" id="certSub" placeholder="e.g. NASA, 2025">
-    </div>
-    <div class="cert-modal-btns">
-      <button class="btn-cancel" onclick="closeCertModal()">Cancel</button>
-      <button class="btn-add" onclick="addCert()">Add Image</button>
-    </div>
+  <!--
+  =====================================================================
+  HOW TO ADD YOUR PICTURES:
+  Row 1 — replace the src="" values below with your image URLs.
+  Row 2 — same for the second row (scrolls opposite direction).
+  You can use GitHub raw URLs:
+    https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/image.jpg
+  Or any direct image link (jpg, png, webp, gif).
+  The placeholder cards will disappear once you add a real src.
+  =====================================================================
+  -->
+
+  <!-- ROW 1 — scrolls left -->
+  <div class="marquee-row" id="row1">
+    <!-- === SLOT 1 — replace src with your image URL === -->
+    <img class="marquee-img" src="" alt="Certificate 1"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🏆</span><span class="marquee-ph-label">Certificate 1</span></div>
+
+    <!-- === SLOT 2 === -->
+    <img class="marquee-img" src="" alt="Certificate 2"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🚀</span><span class="marquee-ph-label">Certificate 2</span></div>
+
+    <!-- === SLOT 3 === -->
+    <img class="marquee-img" src="" alt="Hackathon Win"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🌍</span><span class="marquee-ph-label">Hackathon Win</span></div>
+
+    <!-- === SLOT 4 === -->
+    <img class="marquee-img" src="" alt="Award 1"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🥇</span><span class="marquee-ph-label">Award</span></div>
+
+    <!-- === SLOT 5 === -->
+    <img class="marquee-img" src="" alt="Event Photo"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">📸</span><span class="marquee-ph-label">Event Photo</span></div>
+
+    <!-- === SLOT 6 === -->
+    <img class="marquee-img" src="" alt="Project Screenshot"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">💻</span><span class="marquee-ph-label">Project</span></div>
+  </div>
+
+  <!-- ROW 2 — scrolls right (opposite direction) -->
+  <div class="marquee-row" id="row2">
+    <!-- === SLOT 7 === -->
+    <img class="marquee-img" src="" alt="Certificate 3"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">📜</span><span class="marquee-ph-label">Certificate 3</span></div>
+
+    <!-- === SLOT 8 === -->
+    <img class="marquee-img" src="" alt="Team Photo"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">👥</span><span class="marquee-ph-label">Team Photo</span></div>
+
+    <!-- === SLOT 9 === -->
+    <img class="marquee-img" src="" alt="NASA Hackathon"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🌑</span><span class="marquee-ph-label">NASA Hackathon</span></div>
+
+    <!-- === SLOT 10 === -->
+    <img class="marquee-img" src="" alt="ESA CNES"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🛰️</span><span class="marquee-ph-label">ESA / CNES</span></div>
+
+    <!-- === SLOT 11 === -->
+    <img class="marquee-img" src="" alt="Innovation Pakistan"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🥈</span><span class="marquee-ph-label">Innovation PK</span></div>
+
+    <!-- === SLOT 12 === -->
+    <img class="marquee-img" src="" alt="ITU Event"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+    ><div class="marquee-ph" style="display:none"><span class="marquee-ph-icon">🎓</span><span class="marquee-ph-label">ITU Event</span></div>
   </div>
 </div>
 
@@ -1198,59 +1168,18 @@ function showToast(type,msg){
   setTimeout(()=>t.classList.remove('show'),5000);
 }
 
-/* CERTIFICATES */
-let certs = JSON.parse(localStorage.getItem('hcerts')||'[]');
-function renderCerts(){
-  const grid=document.getElementById('certGrid');
-  const empty=document.getElementById('certEmpty');
-  // remove old cards
-  grid.querySelectorAll('.cert-card').forEach(c=>c.remove());
-  if(certs.length===0){empty.style.display='';return}
-  empty.style.display='none';
-  certs.forEach((c,i)=>{
-    const card=document.createElement('div');
-    card.className='cert-card';
-    card.innerHTML=`
-      <img src="${c.url}" alt="${c.title}" loading="lazy" onerror="this.style.opacity='.3';this.alt='Image not found'">
-      <div class="cert-card-body">
-        <div class="cert-card-title">${c.title||'Certificate'}</div>
-        ${c.sub?`<div class="cert-card-sub">${c.sub}</div>`:''}
-      </div>
-      <button class="cert-card-del" onclick="deleteCert(${i})" title="Remove"><i class="fas fa-times"></i></button>
-    `;
-    grid.appendChild(card);
-  });
+/* MARQUEE — scroll driven */
+const marqueeEl=document.getElementById('marquee');
+const row1El=document.getElementById('row1');
+const row2El=document.getElementById('row2');
+function updateMarquee(){
+  if(!marqueeEl)return;
+  const offset=(window.scrollY-marqueeEl.offsetTop+window.innerHeight)*0.28;
+  row1El.style.transform=`translateX(${offset-300}px)`;
+  row2El.style.transform=`translateX(${-(offset-300)}px)`;
 }
-function deleteCert(i){
-  certs.splice(i,1);
-  localStorage.setItem('hcerts',JSON.stringify(certs));
-  renderCerts();
-}
-function openCertModal(){
-  document.getElementById('certModalBackdrop').classList.add('open');
-  document.getElementById('certUrl').focus();
-}
-function closeCertModal(){
-  document.getElementById('certModalBackdrop').classList.remove('open');
-  document.getElementById('certUrl').value='';
-  document.getElementById('certTitle').value='';
-  document.getElementById('certSub').value='';
-}
-function closeCertModalBackdrop(e){
-  if(e.target===document.getElementById('certModalBackdrop'))closeCertModal();
-}
-function addCert(){
-  const url=document.getElementById('certUrl').value.trim();
-  const title=document.getElementById('certTitle').value.trim();
-  const sub=document.getElementById('certSub').value.trim();
-  if(!url){showToast('error','⚠ Please enter an image URL.');return}
-  certs.push({url,title,sub});
-  localStorage.setItem('hcerts',JSON.stringify(certs));
-  renderCerts();
-  closeCertModal();
-  showToast('success','✓ Image added!');
-}
-renderCerts();
+window.addEventListener('scroll',updateMarquee,{passive:true});
+updateMarquee();
 
 /* CURSOR */
 const cur=document.getElementById('cursor'),curDot=document.getElementById('cursor-dot');
@@ -1342,6 +1271,46 @@ const fadeObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');fadeObs.unobserve(e.target)}});
 },{threshold:.08});
 document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
+
+/* MAGNETIC PORTRAIT */
+const portraitCol=document.getElementById('portrait-col');
+if(portraitCol){
+  const portraitImg=portraitCol.querySelector('img');
+  document.addEventListener('mousemove',e=>{
+    if(!portraitImg)return;
+    const rect=portraitCol.getBoundingClientRect();
+    const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+    const dx=e.clientX-cx,dy=e.clientY-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<350){
+      const strength=4;
+      portraitImg.style.transform=`translateX(${dx/strength}px) translateY(${dy/strength}px)`;
+      portraitImg.style.transition='transform .3s ease-out';
+    } else {
+      portraitImg.style.transform='';
+      portraitImg.style.transition='transform .6s ease-in-out';
+    }
+  });
+}
+
+/* ANIMATED CHARS — hero heading lights up on scroll */
+(function(){
+  const h1=document.querySelector('.hero-h1');
+  if(!h1)return;
+  const text=h1.textContent;
+  h1.innerHTML=text.split('').map(ch=>
+    ch===' '?' ':`<span class="char">${ch}</span>`
+  ).join('');
+  const chars=h1.querySelectorAll('.char');
+  let lit=0;
+  function lightUp(){
+    const pct=Math.min(1,(window.scrollY)/(window.innerHeight*0.4));
+    const target=Math.floor(pct*chars.length);
+    chars.forEach((c,i)=>c.classList.toggle('lit',i<target));
+  }
+  window.addEventListener('scroll',lightUp,{passive:true});
+  lightUp();
+})();
 </script>
 </body>
 </html>
